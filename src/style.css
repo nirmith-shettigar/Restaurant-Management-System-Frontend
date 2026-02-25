@@ -19,3 +19,15 @@
          focus:border-blue-500 
          outline-none transition;
 }
+
+.stat-card {
+  @apply bg-white border p-4;
+}
+
+.stat-label {
+  @apply text-sm mb-2;
+}
+
+.stat-value {
+  @apply text-2xl font-bold;
+}

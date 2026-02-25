@@ -46,21 +46,21 @@ onMounted(() => {
     </div>
 
     <div class="flex gap-4 mb-4">
-      <div class="bg-white border p-4">
-        <p class="text-sm mb-2">New Orders</p>
-        <p class="text-2xl font-bold">{{ stats.newOrders }}</p>
+      <div class="stat-card">
+        <p class="stat-label">New Orders</p>
+        <p class="stat-value">{{ stats.newOrders }}</p>
       </div>
-      <div class="bg-white border p-4">
-        <p class="text-sm mb-2">Preparing</p>
-        <p class="text-2xl font-bold">{{ stats.preparing }}</p>
+      <div class="stat-card">
+        <p class="stat-label">Preparing</p>
+        <p class="stat-value">{{ stats.preparing }}</p>
       </div>
-      <div class="bg-white border p-4">
-        <p class="text-sm mb-2">Ready to Serve</p>
-        <p class="text-2xl font-bold">{{ stats.ready }}</p>
+      <div class="stat-card">
+        <p class="stat-label">Ready to Serve</p>
+        <p class="stat-value">{{ stats.ready }}</p>
       </div>
-      <div class="bg-white border p-4">
-        <p class="text-sm mb-2">Completed</p>
-        <p class="text-2xl font-bold">{{ stats.completed }}</p>
+      <div class="stat-card">
+        <p class="stat-label">Completed</p>
+        <p class="stat-value">{{ stats.completed }}</p>
       </div>
     </div>
 
