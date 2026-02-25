@@ -3,17 +3,12 @@
     <h2 class="text-2xl font-bold mb-6 text-black">Create User</h2>
 
     <form @submit.prevent="AddUser" class="space-y-4">
-      <input v-model="name" placeholder="Name" required
-        class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" />
+      <input v-model="name" placeholder="Name" required class="input-field" />
+      <input v-model="email" type="email" placeholder="Email" required class="input-field" />
 
-      <input v-model="email" type="email" placeholder="Email" required
-        class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" />
+      <input v-model="phone" placeholder="Phone number" required class="input-field" />
 
-      <input v-model="phone" placeholder="Phone number" required
-        class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" />
-
-      <input v-model="password" type="password" placeholder="Password" required
-        class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" />
+      <input v-model="password" type="password" placeholder="Password" required class="input-field" />
 
       <div class="flex gap-6">
         <label class="flex items-center gap-2">
