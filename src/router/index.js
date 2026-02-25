@@ -83,7 +83,7 @@ const routes = [
     children : [
       {
         path:"",
-        component:CreateUser
+        component:DisplayUser
       },
       {
         path:"create-user",
