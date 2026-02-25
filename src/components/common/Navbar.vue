@@ -45,7 +45,7 @@
                   <span class="text-gray-700">Profile</span>
                 </button>
                 <button
-                 @click="handleLogout"
+                  @click="handleLogout"
                   class="w-full text-left px-4 py-3 rounded-b-lg hover:bg-red-500 group transition flex items-center space-x-2"
                 >
                   <LogOut
@@ -69,13 +69,16 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { User, LogOut } from "lucide-vue-next";
+import { useRouter } from "vue-router";
 
 const store = useStore();
 const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"]);
 const showDropdown = ref(false);
+const router = useRouter();
 
 const handleLogout = () => {
   store.dispatch("auth/logout");
   showDropdown.value = false;
+  router.push("/");
 };
 </script>
