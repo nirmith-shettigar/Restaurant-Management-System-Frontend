@@ -33,11 +33,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { hideNavbar: true }
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    meta: { hideNavbar: true }
   },
   // Customer Routes
   {
@@ -118,6 +120,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  if (
+    isLoggedIn &&
+    (to.name === "Login" || to.name === "Register")
+  ) {
+    next({ name: "Home" }); 
+  } else {
+    next();
+  }
 });
 
 export default router;
