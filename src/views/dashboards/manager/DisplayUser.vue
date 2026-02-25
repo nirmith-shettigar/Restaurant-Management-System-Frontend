@@ -16,11 +16,7 @@
         </thead>
 
         <tbody>
-          <tr 
-            v-for="user in users" 
-            :key="user.id"
-            class="border-b hover:bg-gray-50 transition"
-          >
+          <tr v-for="user in users" :key="user.id" class="border-b hover:bg-gray-50 transition">
             <td class="px-6 py-4 font-medium">
               {{ user.name }}
             </td>
@@ -34,18 +30,15 @@
             </td>
 
             <td class="px-6 py-4">
-              <span 
-                class="px-3 py-1 rounded-full text-sm font-medium"
-                :class="user.role === 'chef' 
-                  ? 'bg-green-100 text-green-700' 
-                  : 'bg-blue-100 text-blue-700'"
-              >
+              <span class="px-3 py-1 rounded-full text-sm font-medium" :class="user.role === 'chef'
+                ? 'bg-green-100 text-green-700'
+                : 'bg-blue-100 text-blue-700'">
                 {{ user.role }}
               </span>
             </td>
           </tr>
 
-          <!-- Empty State -->
+
           <tr v-if="users.length === 0">
             <td colspan="4" class="text-center py-6 text-gray-500">
               No users found
