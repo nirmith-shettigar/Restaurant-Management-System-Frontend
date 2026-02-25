@@ -59,18 +59,15 @@ export const login = async (credentials) => {
         if (response.data && response.data.length > 0) {
             const user = response.data[0];
             const { password, number, ...safeUser } = user;
-            localStorage.setItem("user", JSON.stringify(safeUser));
-            localStorage.setItem("token", "dummy-token");
-            return safeUser;
+           
+            return {
+                user: safeUser,
+                token: "dummy-token"
+            };
         } else {
             throw new Error("Invalid credentials");
         }
     } catch (error) {
         throw error;
     }
-};
-
-export const logout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
 };

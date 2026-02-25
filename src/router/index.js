@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "../store";
 
 
 import Home from "../views/Home.vue";
@@ -123,7 +124,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = store.getters['auth/isAuthenticated'];
 
   if (
     isLoggedIn &&
