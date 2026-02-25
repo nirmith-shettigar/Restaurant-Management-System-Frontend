@@ -2,16 +2,58 @@
   <div>
     <h2 class="text-2xl font-bold mb-8">All Users</h2>
 
-    <div class="flex flex-wrap gap-6">
-      <div v-for="user in users" :key="user.id"
-        class="w-56 bg-white p-6 rounded-xl shadow-md text-center">
+    <div class="overflow-x-auto bg-white rounded-xl shadow-md">
+      <table class="min-w-full text-left">
 
-        <div class="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-4"></div>
 
-        <h3 class="font-semibold text-lg">{{ user.name }}</h3>
-        <p class="text-gray-600">{{ user.email }}</p>
-        <span class="text-blue-600">Role : {{ user.role }}</span>
-      </div>
+        <thead class="bg-slate-800 text-white">
+          <tr>
+            <th class="px-6 py-4">Name</th>
+            <th class="px-6 py-4">Email</th>
+            <th class="px-6 py-4">Phone</th>
+            <th class="px-6 py-4">Role</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr 
+            v-for="user in users" 
+            :key="user.id"
+            class="border-b hover:bg-gray-50 transition"
+          >
+            <td class="px-6 py-4 font-medium">
+              {{ user.name }}
+            </td>
+
+            <td class="px-6 py-4 text-gray-600">
+              {{ user.email }}
+            </td>
+
+            <td class="px-6 py-4 text-gray-600">
+              {{ user.phone }}
+            </td>
+
+            <td class="px-6 py-4">
+              <span 
+                class="px-3 py-1 rounded-full text-sm font-medium"
+                :class="user.role === 'chef' 
+                  ? 'bg-green-100 text-green-700' 
+                  : 'bg-blue-100 text-blue-700'"
+              >
+                {{ user.role }}
+              </span>
+            </td>
+          </tr>
+
+          <!-- Empty State -->
+          <tr v-if="users.length === 0">
+            <td colspan="4" class="text-center py-6 text-gray-500">
+              No users found
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -20,19 +62,19 @@
 import ManagerService from '../../../services/ManagerService';
 
 export default {
-  data(){
-    return {  
-      users:[]
+  data() {
+    return {
+      users: []
     }
   },
 
-  mounted(){
+  mounted() {
     this.loadUsers()
   },
 
-  methods:{
-    loadUsers(){
-      ManagerService.getUsers().then((res)=>this.users=res.data)
+  methods: {
+    loadUsers() {
+      ManagerService.getUsers().then((res) => this.users = res.data)
     }
   }
 }
