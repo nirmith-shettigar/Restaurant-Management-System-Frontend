@@ -22,6 +22,7 @@ import CreateUser from "../views/dashboards/manager/CreateUser.vue";
 import ChefDashboard from "../views/dashboards/chef/ChefDashboard.vue";
 import KitchenOrders from "../views/dashboards/chef/KitchenOrders.vue";
 
+
 const routes = [
   {
     path: "/",
@@ -78,19 +79,23 @@ const routes = [
   // Manager Routes
   {
     path: "/manager",
-    name: "ManagerDashboard",
     component: ManagerDashboard,
+    children : [
+      {
+        path:"",
+        component:CreateUser
+      },
+      {
+        path:"create-user",
+        component:CreateUser
+      },
+      {
+        path:"users",
+        component:DisplayUser
+      }
+    ]
   },
-  {
-    path: "/manager/users",
-    name: "DisplayUser",
-    component: DisplayUser,
-  },
-  {
-    path: "/manager/create-user",
-    name: "CreateUser",
-    component: CreateUser,
-  },
+  
   // Chef Routes
   {
     path: "/chef",

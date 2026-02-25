@@ -23,6 +23,22 @@
       "email": "abc@123",
       "password": 123,
       "role": "WAITER"
+    },
+    {
+      "id": "152f",
+      "name": "geetha",
+      "email": "geethabhumireddy51@gmail.com",
+      "phone": "9014580108",
+      "password": "reddygeetha@2004",
+      "role": "chef"
+    },
+    {
+      "id": "837f",
+      "name": "guyew",
+      "email": "are@gmail.com",
+      "phone": "ar",
+      "password": "erw",
+      "role": "chef"
     }
   ],
   "orders": [
