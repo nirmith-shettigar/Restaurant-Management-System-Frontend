@@ -22,7 +22,7 @@ const handleRegister = async () => {
  
     try {
         const response = await register(formData.value);
-        successMessage.value = "Registration successful!";
+        successMessage.value = "Registration successful! Redirecting...";
  
         setTimeout(() => {
             router.push("/login");
