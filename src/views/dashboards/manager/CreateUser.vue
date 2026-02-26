@@ -2,7 +2,7 @@
   <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
     <h2 class="text-2xl font-bold mb-6 text-black">Create User</h2>
 
-    <form @submit.prevent="AddUser" class="space-y-4">
+    <form @submit.prevent="addUserToUserList" class="space-y-4">
       <input v-model="name" placeholder="Name" required class="input-field" />
       <input v-model="email" type="email" placeholder="Email" required class="input-field" />
 
@@ -44,15 +44,15 @@ export default {
   },
 
   methods: {
-    AddUser() {
+    addUserToUserList() {
       ManagerService.addUser({
         name: this.name,
         email: this.email,
         phone: this.phone,
         password: this.password,
         role: this.role
-      }).then((res) => this.$router.push("/manager/users"))
-      alert("Created User Succesfully")
+      }).then((res) => setTimeout(()=>{this.$router.push("/manager/users")},2000))
+      this.successMessage = "User Created Succesfully"
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2 class="text-2xl font-bold mb-8">All Users</h2>
-
+    <h2 class="text-2xl font-bold mb-8">All Users </h2> <FilterUser v-model="selectedRole" />
+    
     <div class="overflow-x-auto bg-white rounded-xl shadow-md">
-      <table class="min-w-full text-left">
+      <table class="min-w-full text-left mt-1">
 
 
         <thead class="bg-slate-800 text-white">
@@ -16,7 +16,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="user in users" :key="user.id" class="border-b hover:bg-gray-50 transition">
+          <tr v-for="user in filterUsers" :key="user.id" class="border-b hover:bg-gray-50 transition">
             <td class="px-6 py-4 font-medium">
               {{ user.name }}
             </td>
@@ -53,11 +53,16 @@
 
 <script>
 import ManagerService from '../../../services/ManagerService';
+import FilterUser from './FilterUser.vue';
 
 export default {
+
+  components: { FilterUser },
+
   data() {
     return {
-      users: []
+      users: [],
+      selectedRole: ''
     }
   },
 
@@ -68,6 +73,14 @@ export default {
   methods: {
     loadUsers() {
       ManagerService.getUsers().then((res) => this.users = res.data)
+    }
+  },
+
+  computed: {
+    filterUsers() {
+      return this.users.filter((user) =>
+        this.selectedRole ? user.role === this.selectedRole : true
+      );
     }
   }
 }
