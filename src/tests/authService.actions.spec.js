@@ -50,4 +50,14 @@ describe("invalid registration cases", ()=>{
             phone:'9014580108'
         })).rejects.toThrow("Please enter a valid email")
     })
+
+    it("invalid phone number returns exception", async ()=>{
+        await expect(register({
+            email:'geetha@gmail.com',
+            password:'dfdf',
+            phone:'901458'
+        })).rejects.toThrow("Plese enter a valid phone number")
+    })
+
+
 })
