@@ -6,10 +6,10 @@
         <p class="text-gray-600 mt-2">Manage orders and bookings</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <router-link
           to="/waiter/create-order"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
         >
           <div class="flex items-center space-x-4">
             <div
@@ -24,9 +24,9 @@
           </div>
         </router-link>
 
-        <router-link
-          to="/waiter"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+        <div
+          @click="activeView = 'orders'"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer"
         >
           <div class="flex items-center space-x-4">
             <div
@@ -39,11 +39,11 @@
               <p class="text-sm text-gray-600">View your orders</p>
             </div>
           </div>
-        </router-link>
+        </div>
 
-        <router-link
-          to="/waiter/bookings"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+        <div
+          @click="activeView = 'bookings'"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer"
         >
           <div class="flex items-center space-x-4">
             <div
@@ -58,10 +58,11 @@
               <p class="text-sm text-gray-600">View reservations</p>
             </div>
           </div>
-        </router-link>
+        </div>
       </div>
 
-      <WaiterOrdersList />
+      <WaiterOrdersList v-if="activeView === 'orders'" />
+      <TodayBookingsList v-if="activeView === 'bookings'" />
     </div>
   </div>
 </template>
@@ -69,12 +70,14 @@
 <script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { ClipboardEdit, ClipboardList, CalendarDays } from "lucide-vue-next";
 import WaiterOrdersList from "../../../components/order/WaiterOrdersList.vue";
+import TodayBookingsList from "../../../components/booking/TodayBookingsList.vue";
 
 const store = useStore();
 const router = useRouter();
+const activeView = ref("orders");
 
 onMounted(() => {
   const isAuthenticated = store.getters["auth/isAuthenticated"];
