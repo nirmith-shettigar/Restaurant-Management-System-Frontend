@@ -21,7 +21,7 @@
 }
 
 .stat-card {
-  @apply bg-white border p-4;
+  @apply bg-white border border-gray-200 rounded-xl p-4;
 }
 
 .stat-label {
@@ -30,4 +30,61 @@
 
 .stat-value {
   @apply text-2xl font-bold;
+}
+
+/* ── Layout containers ── */
+.section-card {
+  @apply bg-white border border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm;
+}
+
+/* ── Individual order card ── */
+.order-card {
+  @apply bg-white border border-gray-200 rounded-xl p-4 shadow-sm
+         hover:shadow-md transition-shadow;
+}
+
+/* ── Empty / loading state ── */
+.empty-state {
+  @apply flex flex-col items-center justify-center py-12 text-center;
+}
+
+/* ── Badge showing item count ── */
+.badge-count {
+  @apply inline-flex items-center justify-center
+         bg-blue-100 text-blue-700 text-sm font-semibold
+         rounded-full px-3 py-0.5 min-w-[2rem];
+}
+
+/* ── Small tag / chip ── */
+.chip {
+  @apply inline-flex items-center gap-1
+         bg-gray-100 text-gray-700 text-xs sm:text-sm
+         rounded-md px-2 py-0.5 font-medium;
+}
+
+/* ── Generic status badge ── */
+.badge {
+  @apply inline-flex items-center
+         text-xs font-semibold rounded-full px-2.5 py-0.5;
+}
+
+.status-placed {
+  @apply bg-blue-100 text-blue-700;
+}
+
+.status-preparing {
+  @apply bg-orange-100 text-orange-700;
+}
+
+.status-ready {
+  @apply bg-green-100 text-green-700;
+}
+
+/* ── Responsive typography helpers ── */
+.text-responsive {
+  @apply text-xs sm:text-sm;
+}
+
+.text-responsive-base {
+  @apply text-sm sm:text-base;
 }
