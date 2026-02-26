@@ -36,57 +36,85 @@ onMounted(() => {
   fetchOrders();
   setInterval(fetchOrders, 30000);
 });
+
 </script>
 
 <template>
-  <div class="p-4">
-    <div class="mb-4">
-      <h1 class="text-2xl font-bold mb-2">Chef Dashboard</h1>
-      <p>Kitchen Operations - {{ new Date().toLocaleDateString() }}</p>
+  <div class="p-3 sm:p-4 md:p-6 max-w-7xl mx-auto">
+    <div class="mb-4 sm:mb-6">
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2">Chef Dashboard</h1>
+      <p class="text-sm sm:text-base text-gray-600">Kitchen Operations - {{ new Date().toLocaleDateString() }}</p>
     </div>
-
-    <div class="flex gap-4 mb-4">
-      <div class="stat-card">
-        <p class="stat-label">New Orders</p>
-        <p class="stat-value">{{ stats.newOrders }}</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
+      <div class="stat-card shadow-sm hover:shadow-md transition-shadow">
+        <p class="stat-label text-gray-600">New Orders</p>
+        <p class="stat-value text-blue-600">{{ stats.newOrders }}</p>
       </div>
-      <div class="stat-card">
-        <p class="stat-label">Preparing</p>
-        <p class="stat-value">{{ stats.preparing }}</p>
+      <div class="stat-card shadow-sm hover:shadow-md transition-shadow">
+        <p class="stat-label text-gray-600">Preparing</p>
+        <p class="stat-value text-orange-600">{{ stats.preparing }}</p>
       </div>
-      <div class="stat-card">
-        <p class="stat-label">Ready to Serve</p>
-        <p class="stat-value">{{ stats.ready }}</p>
+      <div class="stat-card shadow-sm hover:shadow-md transition-shadow">
+        <p class="stat-label text-gray-600">Ready to Serve</p>
+        <p class="stat-value text-green-600">{{ stats.ready }}</p>
       </div>
-      <div class="stat-card">
-        <p class="stat-label">Completed</p>
-        <p class="stat-value">{{ stats.completed }}</p>
+      <div class="stat-card shadow-sm hover:shadow-md transition-shadow">
+        <p class="stat-label text-gray-600">Completed</p>
+        <p class="stat-value text-gray-600">{{ stats.completed }}</p>
       </div>
     </div>
-
-    <div class="bg-white border p-4">
-      <h2 class="text-xl font-bold mb-4">Active Orders ({{ pendingOrders.length }})</h2>
-
-      <div v-if="loading" class="text-center py-8">
-        <p>Loading orders...</p>
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl md:text-2xl font-bold">Active Orders</h2>
+        <span class="badge-count">
+          {{ pendingOrders.length }}
+        </span>
       </div>
-
-      <div v-else-if="pendingOrders.length === 0" class="text-center py-8">
-        <p>No pending orders! Kitchen is clear.</p>
+      <div v-if="loading" class="empty-state">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-blue-600 mb-3">
+        </div>
+        <p class="text-responsive-base text-gray-600">Loading orders...</p>
       </div>
-
-      <div v-else>
-        <div v-for="order in pendingOrders.slice(0, 5)" :key="order.id" class="border-b py-3">
-          <div class="mb-2">
-            <span class="font-bold">Order #{{ order.id }}</span> |
-            <span>Table {{ order.tableId }}</span> |
-            <span class="text-sm border px-2 py-1">{{ order.status }}</span>
+      <div v-else-if="pendingOrders.length === 0" class="empty-state">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-3" width="48" height="48" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-responsive-base text-gray-600 font-medium">No pending orders!</p>
+        <p class="text-responsive text-gray-500 mt-1">Kitchen is clear.</p>
+      </div>
+      <div v-else class="space-y-3 sm:space-y-4">
+        <div v-for="order in pendingOrders" :key="order.id" class="order-card">
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <span class="font-bold text-sm sm:text-base">Order #{{ order.id }}</span>
+            <span class="text-gray-400 hidden sm:inline">|</span>
+            <span class="chip">Table {{ order.tableId }}</span>
+            <span class="badge ml-auto" :class="{
+              'status-placed': order.status === 'placed',
+              'status-preparing': order.status === 'preparing',
+              'status-ready': order.status === 'ready'
+            }">
+              {{ order.status.charAt(0).toUpperCase() + order.status.slice(1) }}
+            </span>
           </div>
-          <div class="text-sm mb-1">
-            <span class="font-bold">Items:</span>
-            {{order.items?.map(item => `${item.name} (x${item.quantity})`).join(', ') || 'No items'}}
+          <div class="mb-2 sm:mb-3">
+            <span class="font-semibold text-responsive text-gray-700 block mb-1">Items:</span>
+            <div class="flex flex-wrap gap-1 sm:gap-2">
+              <span v-for="(item, index) in order.items" :key="index" class="chip">
+                {{ item.name }} <span class="font-semibold text-blue-600">×{{ item.quantity }}</span>
+              </span>
+              <span v-if="!order.items || order.items.length === 0" class="text-responsive text-gray-500 italic">
+                No items
+              </span>
+            </div>
           </div>
-          <div class="text-sm">
+          <div class="flex items-center text-responsive text-gray-600">
+            <svg class="mr-1 h-4 w-4 shrink-0" width="16" height="16" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             {{ new Date(order.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) }}
           </div>
         </div>
