@@ -15,7 +15,7 @@
         :key="booking.id"
         class="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 border border-gray-100"
       >
-        <div class="space-y-4">
+        <div class="space-y-2">
           <div
             class="flex items-center justify-between border-b border-gray-100 pb-3"
           >

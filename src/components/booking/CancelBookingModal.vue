@@ -8,7 +8,7 @@
       class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
     >
       <div class="px-6 py-5">
-        <p class="text-gray-700 mb-4">
+        <p class="text-gray-700 mb-2">
           Are you sure you want to cancel this booking? This action cannot be
           undone.
         </p>
