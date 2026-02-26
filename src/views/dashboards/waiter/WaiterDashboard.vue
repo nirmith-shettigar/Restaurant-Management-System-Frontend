@@ -1,1 +1,89 @@
-<template></template>
+<template>
+  <div class="min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Waiter Dashboard</h1>
+        <p class="text-gray-600 mt-2">Manage orders and bookings</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <router-link
+          to="/waiter/create-order"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center"
+            >
+              <ClipboardEdit :size="24" class="text-blue-600" />
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Take Order</h3>
+              <p class="text-sm text-gray-600">Create new order</p>
+            </div>
+          </div>
+        </router-link>
+
+        <router-link
+          to="/waiter"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"
+            >
+              <ClipboardList :size="24" class="text-green-600" />
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">My Orders</h3>
+              <p class="text-sm text-gray-600">View your orders</p>
+            </div>
+          </div>
+        </router-link>
+
+        <router-link
+          to="/waiter/bookings"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+            >
+              <CalendarDays :size="24" class="text-purple-600" />
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">
+                Today's Bookings
+              </h3>
+              <p class="text-sm text-gray-600">View reservations</p>
+            </div>
+          </div>
+        </router-link>
+      </div>
+
+      <WaiterOrdersList />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { ClipboardEdit, ClipboardList, CalendarDays } from "lucide-vue-next";
+import WaiterOrdersList from "../../../components/order/WaiterOrdersList.vue";
+
+const store = useStore();
+const router = useRouter();
+
+onMounted(() => {
+  const isAuthenticated = store.getters["auth/isAuthenticated"];
+  const userRole = store.getters["auth/userRole"];
+
+  if (!isAuthenticated) {
+    router.push("/login");
+  } else if (userRole !== "WAITER") {
+    router.push("/");
+  }
+});
+</script>

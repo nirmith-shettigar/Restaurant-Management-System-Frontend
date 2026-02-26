@@ -36,3 +36,38 @@ export const register = async (userData) => {
         throw error;
     }
 };
+
+
+export const login = async (credentials) => {
+    try {
+        if (!credentials.email || !credentials.password || !credentials.role) {
+            throw new Error("All fields are required");
+        }
+
+        if (!isValidEmail(credentials.email)) {
+            throw new Error("Please enter a valid email");
+        }
+
+        const response = await api.get("/users", {
+            params: {
+                email: credentials.email,
+                password: credentials.password,
+                role : credentials.role
+            },
+        });
+
+        if (response.data && response.data.length > 0) {
+            const user = response.data[0];
+            const { password, number, ...safeUser } = user;
+           
+            return {
+                user: safeUser,
+                token: "dummy-token"
+            };
+        } else {
+            throw new Error("Invalid credentials");
+        }
+    } catch (error) {
+        throw error;
+    }
+};
