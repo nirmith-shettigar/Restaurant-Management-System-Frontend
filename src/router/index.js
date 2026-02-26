@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import store from "../store";
 
 import Home from "../views/Home.vue";
 import Login from "../views/auth/Login.vue";
@@ -12,7 +12,6 @@ import CustomerMenu from "../views/dashboards/customer/CustomerMenu.vue";
 
 import WaiterDashboard from "../views/dashboards/waiter/WaiterDashboard.vue";
 import CreateOrder from "../views/dashboards/waiter/CreateOrder.vue";
-import MyOrders from "../views/dashboards/waiter/MyOrders.vue";
 import TodayBookings from "../views/dashboards/waiter/TodayBookings.vue";
 
 import ManagerDashboard from "../views/dashboards/manager/ManagerDashboard.vue";
@@ -21,7 +20,6 @@ import CreateUser from "../views/dashboards/manager/CreateUser.vue";
 
 import ChefDashboard from "../views/dashboards/chef/ChefDashboard.vue";
 import KitchenOrders from "../views/dashboards/chef/KitchenOrders.vue";
-
 
 const routes = [
   {
@@ -33,11 +31,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { hideNavbar: true },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    meta: { hideNavbar: true },
   },
   // Customer Routes
   {
@@ -67,11 +67,6 @@ const routes = [
     component: CreateOrder,
   },
   {
-    path: "/waiter/orders",
-    name: "MyOrders",
-    component: MyOrders,
-  },
-  {
     path: "/waiter/bookings",
     name: "TodayBookings",
     component: TodayBookings,
@@ -80,22 +75,22 @@ const routes = [
   {
     path: "/manager",
     component: ManagerDashboard,
-    children : [
+    children: [
       {
-        path:"",
-        component:DisplayUser
+        path: "",
+        component: DisplayUser,
       },
       {
-        path:"create-user",
-        component:CreateUser
+        path: "create-user",
+        component: CreateUser,
       },
       {
-        path:"users",
-        component:DisplayUser
-      }
-    ]
+        path: "users",
+        component: DisplayUser,
+      },
+    ],
   },
-  
+
   // Chef Routes
   {
     path: "/chef",
@@ -118,6 +113,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters["auth/isAuthenticated"];
+
+  if (isLoggedIn && (to.name === "Login" || to.name === "Register")) {
+    next({ name: "Home" });
+  } else {
+    next();
+  }
 });
 
 export default router;

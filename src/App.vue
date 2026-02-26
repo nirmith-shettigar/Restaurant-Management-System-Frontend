@@ -11,7 +11,7 @@ export default {
 
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar v-if="!$route.meta.hideNavbar" />
     <main>
       <router-view />
     </main>
