@@ -22,7 +22,8 @@
               {{ booking.id }}
             </h3>
             <span
-              class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700"
+              class="px-3 py-1 text-xs font-semibold rounded-full"
+              :class="getStatusClass(booking.status)"
             >
               {{ booking.status }}
             </span>
@@ -107,4 +108,13 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+const getStatusClass = (status) => {
+  const classes = {
+    CONFIRMED: "bg-green-100 text-green-700",
+    CANCELLED: "bg-red-100 text-red-700",
+  };
+
+  return classes[status];
+};
 </script>
