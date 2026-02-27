@@ -29,35 +29,30 @@ describe("Auth service apis", () => {
         const response = await axiosInstance.post("/users")
         expect(response.data).toEqual(mockUser)
     })
-
-
-
 })
 
-describe("invalid registration cases", ()=>{
-    it("all blank feilds return exception", async ()=>{
+describe("invalid registration cases", () => {
+    it("all blank feilds return exception", async () => {
         await expect(register({
-            email:'',
-            password:'',
-            phone:''
+            email: '',
+            password: '',
+            phone: ''
         })).rejects.toThrow("All fields are required")
     })
 
-    it("invalid email should return exception", async ()=>{
+    it("invalid email should return exception", async () => {
         await expect(register({
-            email:'geetha@hhweurhw',
-            password:'dfdf',
-            phone:'9014580108'
+            email: 'geetha@hhweurhw',
+            password: 'dfdf',
+            phone: '9014580108'
         })).rejects.toThrow("Please enter a valid email")
     })
 
-    it("invalid phone number returns exception", async ()=>{
+    it("invalid phone number returns exception", async () => {
         await expect(register({
-            email:'geetha@gmail.com',
-            password:'dfdf',
-            phone:'901458'
-        })).rejects.toThrow("Plese enter a valid phone number")
+            email: 'geetha@gmail.com',
+            password: 'dfdf',
+            phone: '901458'
+        })).rejects.toThrow("Please enter a valid phone number")
     })
-
-
 })

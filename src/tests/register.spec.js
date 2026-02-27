@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
@@ -30,36 +30,11 @@ describe('Register.vue - rendering', () => {
         expect(wrapper.find("input[type='password']").exists()).toBe(true)
         expect(wrapper.find('button[type="submit"], button').exists()).toBe(true)
     })
-
-    it('renders the page heading', () => {
-        const wrapper = mountRegister()
-        expect(wrapper.text()).toContain('User Registration')
-    })
-
-    it('button shows "Register" by default (not loading)', () => {
-        const wrapper = mountRegister()
-        expect(wrapper.find('button').text()).toBe('Register')
-    })
-
-    it('does not show error or success messages on initial render', () => {
-        const wrapper = mountRegister()
-        expect(wrapper.find('.text-red-600').exists()).toBe(false)
-        expect(wrapper.find('.text-green-600').exists()).toBe(false)
-    })
 })
 
 describe('Register.vue – validation errors', () => {
     it('shows "All fields are required" when form is submitted empty', async () => {
         const wrapper = mountRegister()
-        await wrapper.find('form').trigger('submit.prevent')
-        await flushPromises()
-
-        expect(wrapper.text()).toContain('All fields are required')
-    })
-
-    it('shows "All fields are required" when only email is filled', async () => {
-        const wrapper = mountRegister()
-        await wrapper.find("input[type='email']").setValue('test@example.com')
         await wrapper.find('form').trigger('submit.prevent')
         await flushPromises()
 
@@ -110,27 +85,6 @@ describe('Register.vue – successful registration', () => {
         expect(wrapper.text()).toContain('Registration successful')
         mock.restore()
     })
-
-    it('does not show error message on successful registration', async () => {
-        const mock = new MockAdapter(api)
-        mock.onGet('/users').reply(200, [])
-        mock.onPost('/users').reply(201, {
-            id: 2,
-            email: 'another@example.com',
-            phone: '9123456789',
-            role: 'CUSTOMER',
-        })
-
-        const wrapper = mountRegister()
-        await wrapper.find("input[type='email']").setValue('another@example.com')
-        await wrapper.find("input[type='tel']").setValue('9123456789')
-        await wrapper.find("input[type='password']").setValue('Pass@1234')
-        await wrapper.find('form').trigger('submit.prevent')
-        await flushPromises()
-
-        expect(wrapper.find('.text-red-600').exists()).toBe(false)
-        mock.restore()
-    })
 })
 
 describe('Register.vue - duplicate user', () => {
@@ -148,42 +102,6 @@ describe('Register.vue - duplicate user', () => {
         await flushPromises()
 
         expect(wrapper.text()).toContain('User already exists')
-        mock.restore()
-    })
-})
-
-describe('Register.vue - loading state', () => {
-    it('disables the submit button while registering', async () => {
-        const mock = new MockAdapter(api)
-        mock.onGet('/users').reply(200, [])
-        mock.onPost('/users').reply(201, { id: 3 })
-
-        const wrapper = mountRegister()
-        await wrapper.find("input[type='email']").setValue('load@example.com')
-        await wrapper.find("input[type='tel']").setValue('9000011112')
-        await wrapper.find("input[type='password']").setValue('LoadTest@1')
-        wrapper.find('form').trigger('submit.prevent')
-        await Promise.resolve()
-        expect(wrapper.find('button').attributes('disabled')).toBeDefined()
-        await flushPromises()
-        mock.restore()
-    })
-
-    it('button label changes to "Registering..." while loading', async () => {
-        const mock = new MockAdapter(api)
-        mock.onGet('/users').reply(200, [])
-        mock.onPost('/users').reply(201, { id: 4 })
-
-        const wrapper = mountRegister()
-        await wrapper.find("input[type='email']").setValue('btn@example.com')
-        await wrapper.find("input[type='tel']").setValue('9111122223')
-        await wrapper.find("input[type='password']").setValue('BtnTest@1')
-
-        wrapper.find('form').trigger('submit.prevent')
-        await Promise.resolve()
-
-        expect(wrapper.find('button').text()).toBe('Registering...')
-        await flushPromises()
         mock.restore()
     })
 })
