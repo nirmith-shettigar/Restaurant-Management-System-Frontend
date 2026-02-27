@@ -36,7 +36,7 @@
         Please select a table first
       </div>
 
-      <div v-else class="space-y-4">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="item in menuItems"
           :key="item.id"
