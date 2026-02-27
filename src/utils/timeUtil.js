@@ -6,3 +6,13 @@ export const formatTime = (timeString) => {
     hour12: true,
   });
 };
+
+export const formatDate = (dateTime) => {
+  const date = new Date(dateTime);
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};

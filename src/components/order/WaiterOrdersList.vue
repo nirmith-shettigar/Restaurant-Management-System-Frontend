@@ -29,7 +29,8 @@
           </select>
 
           <button
-            class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            @click="openOrderDetails(order)"
+            class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer"
           >
             View
           </button>
@@ -40,6 +41,12 @@
     <div v-else class="text-center py-12">
       <p class="text-gray-500">No orders found</p>
     </div>
+
+    <OrderDetailsModal
+      :isOpen="isModalOpen"
+      :order="selectedOrder"
+      @close="closeOrderDetails"
+    />
   </div>
 </template>
 
@@ -51,10 +58,13 @@ import {
   updateOrderStatus,
 } from "../../services/orderService";
 import { formatTime } from "../../utils/timeUtil";
+import OrderDetailsModal from "./OrderDetailsModal.vue";
 
 const store = useStore();
 const orders = ref([]);
 const loading = ref(true);
+const isModalOpen = ref(false);
+const selectedOrder = ref({});
 
 const currentUser = computed(() => store.getters["auth/currentUser"]);
 
@@ -84,5 +94,15 @@ const handleStatusChange = async (order) => {
   } catch (error) {
     console.error("Error updating order status:", error);
   }
+};
+
+const openOrderDetails = (order) => {
+  selectedOrder.value = order;
+  isModalOpen.value = true;
+};
+
+const closeOrderDetails = () => {
+  isModalOpen.value = false;
+  selectedOrder.value = {};
 };
 </script>

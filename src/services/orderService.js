@@ -31,3 +31,20 @@ export const updateOrderStatus = async (id, status) => {
     throw error;
   }
 };
+
+export const createOrder = async(order)=>{
+    if (!order.tableId || !order.waiterId || !order.items?.length) {
+    throw new Error('Missing required fields: tableId, waiterId, or items');
+  }
+
+   try {
+    const response = await api.post('/orders',{
+      ...order,
+      status : "PENDING"
+    })
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Order creation failed: ${error.message}`);
+  }
+}
