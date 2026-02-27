@@ -12,7 +12,7 @@ export const register = async (userData) => {
         }
 
         if (!isValidPhoneNumber(userData.phone)) {
-            throw new Error("Plese enter a valid phone number");
+            throw new Error("Please enter a valid phone number");
         }
 
         let response = await api.get("/users", {

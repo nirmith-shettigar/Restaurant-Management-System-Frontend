@@ -39,9 +39,6 @@ describe("Auth service apis", () => {
         const response = await axiosInstance.post("/users")
         expect(response.data).toEqual(mockUser)
     })
-
-
-
 })
 
 describe("invalid registration cases", () => {
