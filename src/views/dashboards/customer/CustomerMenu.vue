@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50">
+    <Toaster position="top-center"/>
     <div class="container mx-auto px-4 py-8">
       <div class="mb-8 flex items-center justify-between">
         <div>
@@ -41,6 +42,7 @@ import { useStore } from "vuex";
 import { ArrowLeft, UtensilsCrossed } from "lucide-vue-next";
 import MenuItem from "../../../components/menu/MenuItem.vue";
 import { getMenuItems } from "../../../services/menuService";
+import { toast, Toaster } from "vue-sonner";
 
 const router = useRouter();
 const store = useStore();
@@ -54,7 +56,7 @@ const loadMenuItems = async () => {
     const items = await getMenuItems();
     menuItems.value = items;
   } catch (error) {
-    console.error("Error loading menu items:", error);
+    toast.error("Error loading menu items:", error);
   } finally {
     loading.value = false;
   }

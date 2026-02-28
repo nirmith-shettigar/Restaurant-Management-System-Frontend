@@ -12,14 +12,12 @@ import CustomerMenu from "../views/dashboards/customer/CustomerMenu.vue";
 
 import WaiterDashboard from "../views/dashboards/waiter/WaiterDashboard.vue";
 import CreateOrder from "../views/dashboards/waiter/CreateOrder.vue";
-import TodayBookings from "../views/dashboards/waiter/TodayBookings.vue";
 
 import ManagerDashboard from "../views/dashboards/manager/ManagerDashboard.vue";
 import DisplayUser from "../views/dashboards/manager/DisplayUser.vue";
 import CreateUser from "../views/dashboards/manager/CreateUser.vue";
 
 import ChefDashboard from "../views/dashboards/chef/ChefDashboard.vue";
-import KitchenOrders from "../views/dashboards/chef/KitchenOrders.vue";
 
 const routes = [
   {
@@ -66,11 +64,6 @@ const routes = [
     name: "CreateOrder",
     component: CreateOrder,
   },
-  {
-    path: "/waiter/bookings",
-    name: "TodayBookings",
-    component: TodayBookings,
-  },
   // Manager Routes
   {
     path: "/manager",
@@ -96,11 +89,6 @@ const routes = [
     path: "/chef",
     name: "ChefDashboard",
     component: ChefDashboard,
-  },
-  {
-    path: "/chef/orders",
-    name: "KitchenOrders",
-    component: KitchenOrders,
   },
   // 404 Not Found
   {

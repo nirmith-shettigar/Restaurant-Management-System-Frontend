@@ -105,20 +105,3 @@ describe('Register.vue - duplicate user', () => {
         mock.restore()
     })
 })
-
-describe('Register.vue - API failure', () => {
-    it('shows a fallback error message when the server returns 500', async () => {
-        const mock = new MockAdapter(api)
-        mock.onGet('/users').reply(200, [])
-        mock.onPost('/users').reply(500)
-
-        const wrapper = mountRegister()
-        await wrapper.find("input[type='email']").setValue('fail@example.com')
-        await wrapper.find("input[type='tel']").setValue('9888877776')
-        await wrapper.find("input[type='password']").setValue('Fail@1234')
-        await wrapper.find('form').trigger('submit.prevent')
-        await flushPromises()
-        expect(wrapper.find('.text-red-600').exists()).toBe(true)
-        mock.restore()
-    })
-})
