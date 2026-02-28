@@ -131,7 +131,7 @@ describe("testing booking service", () => {
             "status": "booked"
         }
 
-        axiosInstance.delete.mockResolvedValue({
+        axiosInstance.patch.mockResolvedValue({
             data: mockData
         })
         const response = await cancelBooking("booking_002")

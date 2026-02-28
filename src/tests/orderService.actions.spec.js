@@ -114,7 +114,6 @@ describe("testing order services", () => {
         const response = await updateOrderStatus("order_001", "served")
         expect(response).toEqual(mockResponse)
     })
-
 })
 
 

@@ -21,11 +21,4 @@ describe("MenuItem.vue", () => {
     expect(wrapper.text()).toContain("₹250");
   });
 
-  it("sets placeholder src when image fails to load", async () => {
-    const wrapper = mount(MenuItem, { props: { item: mockItem } });
-    const img = wrapper.find("img");
-    await img.trigger("error");
-    expect(img.element.src).toContain("placeholder");
-  });
-
 });

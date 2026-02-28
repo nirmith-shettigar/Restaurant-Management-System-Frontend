@@ -2,10 +2,10 @@ import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import TodayBookingsList from "../components/booking/TodayBookingsList.vue";
 import * as bookingService from "../services/bookingService";
-import * as userService from "../services/userService";
+import * as userService from "../services/customerService";
 
 vi.mock("../services/bookingService");
-vi.mock("../services/userService");
+vi.mock("../services/customerService");
 
 describe("TodayBookingsList.vue", () => {
     it("shows loading state initially", () => {
@@ -30,7 +30,7 @@ describe("TodayBookingsList.vue", () => {
 
     it("shows empty state when there are no bookings today", async () => {
         bookingService.getTodayBookings.mockResolvedValue([]);
-        userService.getUserById.mockResolvedValue({ id: 1, email: 'a@b.com', phone: '123' });
+        userService.getUserById.mockResolvedValue({ id: 1, email: 'a@b.com', phone: '123' }); // customerService mock
         const { flushPromises } = await import('@vue/test-utils');
         const wrapper = mount(TodayBookingsList, {
             global: {

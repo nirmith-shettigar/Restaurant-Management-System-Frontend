@@ -24,5 +24,5 @@ describe("timeUtil", () => {
             expect(result.length).toBeGreaterThan(0);
         });
 
-});
+    });
 });
