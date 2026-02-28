@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { getAllOrders, updateOrderStatus } from '../../../services/orderService';
 import OrderDetailsModal from '../../../components/order/OrderDetailsModal.vue';
+import { toast, Toaster } from 'vue-sonner';
 
 const orders = ref([]);
 const loading = ref(true);
@@ -14,7 +15,7 @@ const fetchOrders = async () => {
     const data = await getAllOrders();
     orders.value = data;
   } catch (error) {
-    console.error('Error fetching orders:', error);
+    toast.error(error.message || 'Error fetching orders');
   } finally {
     loading.value = false;
   }
@@ -25,7 +26,7 @@ const handleStatusChange = async (order) => {
     await updateOrderStatus(order.id, order.status);
     await fetchOrders();
   } catch (error) {
-    console.error('Error updating order status:', error);
+    toast.error(error.message || 'Error updating order status');
     await fetchOrders();
   }
 };
@@ -64,6 +65,7 @@ onMounted(() => {
 
 <template>
   <div class="p-3 sm:p-4 md:p-6 max-w-7xl mx-auto">
+    <Toaster position="top-center" />
     <div class="mb-4 sm:mb-6">
       <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2">Chef Dashboard</h1>
       <p class="text-sm sm:text-base text-gray-600">Kitchen Operations - {{ new Date().toLocaleDateString() }}</p>

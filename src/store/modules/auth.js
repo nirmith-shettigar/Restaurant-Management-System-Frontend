@@ -35,7 +35,6 @@ const mutations = {
         state.token = token;
         state.isAuthenticated = true;
       } catch (error) {
-        console.error('Error parsing user data:', error);
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;

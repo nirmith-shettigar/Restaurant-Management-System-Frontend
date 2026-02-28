@@ -65,4 +65,3 @@ describe('Register.vue – successful registration', () => {
     })
 })
 
-

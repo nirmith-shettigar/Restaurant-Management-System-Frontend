@@ -12,7 +12,6 @@ import CustomerMenu from "../views/dashboards/customer/CustomerMenu.vue";
 
 import WaiterDashboard from "../views/dashboards/waiter/WaiterDashboard.vue";
 import CreateOrder from "../views/dashboards/waiter/CreateOrder.vue";
-import TodayBookings from "../views/dashboards/waiter/TodayBookings.vue";
 
 import ManagerDashboard from "../views/dashboards/manager/ManagerDashboard.vue";
 import DisplayUser from "../views/dashboards/manager/DisplayUser.vue";
@@ -64,11 +63,6 @@ const routes = [
     path: "/waiter/create-order",
     name: "CreateOrder",
     component: CreateOrder,
-  },
-  {
-    path: "/waiter/bookings",
-    name: "TodayBookings",
-    component: TodayBookings,
   },
   // Manager Routes
   {

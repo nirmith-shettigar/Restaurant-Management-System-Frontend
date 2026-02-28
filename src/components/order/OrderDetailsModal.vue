@@ -126,6 +126,7 @@ import {
 } from "lucide-vue-next";
 import { getMenuItems } from "../../services/menuService";
 import { formatTime } from "../../utils/timeUtil";
+import { toast } from "vue-sonner";
 
 const props = defineProps({
   isOpen: {
@@ -187,7 +188,7 @@ watch(
       try {
         menuItems.value = await getMenuItems();
       } catch (error) {
-        console.error("Error loading menu items:", error);
+        toast.error(error.message || "Error loading menu items");
       } finally {
         loading.value = false;
       }
