@@ -17,7 +17,7 @@ const mountDashboard = () =>
 const makeOrder = (overrides = {}) => ({
     id: 1,
     tableId: 5,
-    status: 'placed',
+    status: 'PENDING',
     time: new Date('2024-01-01T10:00:00').toISOString(),
     items: [{ name: 'Pasta', quantity: 2 }],
     ...overrides,
@@ -54,11 +54,11 @@ describe('ChefDashboard – loading state', () => {
 describe('ChefDashboard – stat card counts', () => {
     it('counts correctly with a mixed set of orders', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
-            makeOrder({ id: 1, status: 'placed' }),
-            makeOrder({ id: 2, status: 'preparing' }),
-            makeOrder({ id: 3, status: 'ready' }),
-            makeOrder({ id: 4, status: 'served' }),
-            makeOrder({ id: 5, status: 'placed' }),
+            makeOrder({ id: 1, status: 'PENDING' }),
+            makeOrder({ id: 2, status: 'PREPARING' }),
+            makeOrder({ id: 3, status: 'PREPARED' }),
+            makeOrder({ id: 4, status: 'SERVED' }),
+            makeOrder({ id: 5, status: 'PENDING' }),
         ])
         const wrapper = mountDashboard()
         await flushPromises()
@@ -82,9 +82,9 @@ describe('ChefDashboard – empty state', () => {
 describe('ChefDashboard – active orders list', () => {
     it('renders an order card for each placed/preparing order', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
-            makeOrder({ id: 1, status: 'placed' }),
-            makeOrder({ id: 2, status: 'preparing' }),
-            makeOrder({ id: 3, status: 'served' }),
+            makeOrder({ id: 1, status: 'PENDING' }),
+            makeOrder({ id: 2, status: 'PREPARING' }),
+            makeOrder({ id: 3, status: 'SERVED' }),
         ])
         const wrapper = mountDashboard()
         await flushPromises()
@@ -95,7 +95,7 @@ describe('ChefDashboard – active orders list', () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
             makeOrder({
                 id: 1,
-                status: 'placed',
+                status: 'PENDING',
                 items: [
                     { name: 'Burger', quantity: 2 },
                     { name: 'Fries', quantity: 1 },
@@ -114,9 +114,9 @@ describe('ChefDashboard – active orders list', () => {
 describe('ChefDashboard – order sorting', () => {
     it('sorts active orders oldest-first by time', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
-            makeOrder({ id: 3, status: 'placed', time: new Date('2024-01-01T12:00:00').toISOString() }),
-            makeOrder({ id: 1, status: 'placed', time: new Date('2024-01-01T08:00:00').toISOString() }),
-            makeOrder({ id: 2, status: 'placed', time: new Date('2024-01-01T10:00:00').toISOString() }),
+            makeOrder({ id: 3, status: 'PENDING', time: new Date('2024-01-01T12:00:00').toISOString() }),
+            makeOrder({ id: 1, status: 'PENDING', time: new Date('2024-01-01T08:00:00').toISOString() }),
+            makeOrder({ id: 2, status: 'PENDING', time: new Date('2024-01-01T10:00:00').toISOString() }),
         ])
         const wrapper = mountDashboard()
         await flushPromises()

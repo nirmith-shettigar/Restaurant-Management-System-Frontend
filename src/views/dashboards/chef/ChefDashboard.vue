@@ -1,9 +1,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { getAllOrders } from '../../../services/orderService';
+import { getAllOrders, updateOrderStatus } from '../../../services/orderService';
+import OrderDetailsModal from '../../../components/order/OrderDetailsModal.vue';
 
 const orders = ref([]);
 const loading = ref(true);
+const isModalOpen = ref(false);
+const selectedOrder = ref({});
 
 const fetchOrders = async () => {
   try {
@@ -17,18 +20,38 @@ const fetchOrders = async () => {
   }
 };
 
+const handleStatusChange = async (order) => {
+  try {
+    await updateOrderStatus(order.id, order.status);
+    await fetchOrders();
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    await fetchOrders();
+  }
+};
+
+const openOrderDetails = (order) => {
+  selectedOrder.value = order;
+  isModalOpen.value = true;
+};
+
+const closeOrderDetails = () => {
+  isModalOpen.value = false;
+  selectedOrder.value = {};
+};
+
 const stats = computed(() => {
   return {
-    newOrders: orders.value.filter(order => order.status === 'placed').length,
-    preparing: orders.value.filter(order => order.status === 'preparing').length,
-    ready: orders.value.filter(order => order.status === 'ready').length,
-    completed: orders.value.filter(order => order.status === 'served').length
+    newOrders: orders.value.filter(order => order.status === 'PENDING').length,
+    preparing: orders.value.filter(order => order.status === 'PREPARING').length,
+    ready: orders.value.filter(order => order.status === 'PREPARED').length,
+    completed: orders.value.filter(order => order.status === 'SERVED').length
   };
 });
 
 const pendingOrders = computed(() => {
   return orders.value.filter(order =>
-    order.status === 'placed' || order.status === 'preparing'
+    order.status === 'PENDING' || order.status === 'PREPARING'
   ).sort((a, b) => new Date(a.time) - new Date(b.time));
 });
 
@@ -85,40 +108,33 @@ onMounted(() => {
         <p class="text-responsive text-gray-500 mt-1">Kitchen is clear.</p>
       </div>
       <div v-else class="space-y-3 sm:space-y-4">
-        <div v-for="order in pendingOrders" :key="order.id" class="order-card">
-          <div class="flex flex-wrap items-center gap-2 mb-3">
-            <span class="font-bold text-sm sm:text-base">Order #{{ order.id }}</span>
-            <span class="text-gray-400 hidden sm:inline">|</span>
-            <span class="chip">Table {{ order.tableId }}</span>
-            <span class="badge ml-auto" :class="{
-              'status-placed': order.status === 'placed',
-              'status-preparing': order.status === 'preparing',
-              'status-ready': order.status === 'ready'
-            }">
-              {{ order.status.charAt(0).toUpperCase() + order.status.slice(1) }}
-            </span>
-          </div>
-          <div class="mb-2 sm:mb-3">
-            <span class="font-semibold text-responsive text-gray-700 block mb-1">Items:</span>
-            <div class="flex flex-wrap gap-1 sm:gap-2">
-              <span v-for="(item, index) in order.items" :key="index" class="chip">
-                {{ item.name }} <span class="font-semibold text-blue-600">×{{ item.quantity }}</span>
-              </span>
-              <span v-if="!order.items || order.items.length === 0" class="text-responsive text-gray-500 italic">
-                No items
-              </span>
+        <div v-for="order in pendingOrders" :key="order.id" class="order-card flex items-center justify-between gap-4">
+          <div class="flex-1 min-w-0 space-y-1">
+            <p class="font-bold text-sm sm:text-base">Order #{{ order.id }}</p>
+            <p class="text-sm text-gray-600">Table: {{ order.tableId }}</p>
+            <div class="flex items-center text-xs text-gray-500">
+              <svg class="mr-1 h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ new Date(order.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) }}
             </div>
           </div>
-          <div class="flex items-center text-responsive text-gray-600">
-            <svg class="mr-1 h-4 w-4 shrink-0" width="16" height="16" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {{ new Date(order.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) }}
+          <div class="flex flex-col space-y-2 shrink-0">
+            <select v-model="order.status" @change="handleStatusChange(order)" :disabled="order.status === 'PREPARED'"
+              class="px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+              <option value="PENDING" disabled>Pending</option>
+              <option value="PREPARING" :disabled="order.status !== 'PENDING'">Preparing</option>
+              <option value="PREPARED" :disabled="order.status !== 'PREPARING'">Prepared</option>
+            </select>
+            <button @click="openOrderDetails(order)"
+              class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer">
+              View
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <OrderDetailsModal :isOpen="isModalOpen" :order="selectedOrder" @close="closeOrderDetails" />
 </template>
