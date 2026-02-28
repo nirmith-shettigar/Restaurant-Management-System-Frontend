@@ -27,9 +27,12 @@ const handleLogin = async () => {
       token: response.token,
     });
 
+    const roleRoutes = { WAITER: "/waiter", CUSTOMER: "/customer", CHEF: "/chef", MANAGER: "/manager" };
+    const destination = roleRoutes[response.user?.role] || "/";
+
     toast.success("Login successful! Redirecting...");
     setTimeout(() => {
-      router.push("/");
+      router.push(destination);
     }, 2000);
   } catch (error) {
     toast.error(error?.message || "Login failed. Please try again.");

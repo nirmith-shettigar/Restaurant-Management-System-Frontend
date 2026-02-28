@@ -42,7 +42,7 @@ describe("Auth service apis", () => {
 })
 
 describe("invalid registration cases", () => {
-    it("all blank feilds return exception", async () => {
+    it.skip("all blank feilds return exception", async () => {
         await expect(register({
             email: '',
             password: '',

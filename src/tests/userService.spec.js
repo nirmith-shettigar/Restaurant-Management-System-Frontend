@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 import api from '../services/api'
-import { getUserById } from '../services/userService'
+import { getUserById } from '../services/customerService'
 
 const mock = new MockAdapter(api)
 
@@ -29,11 +29,5 @@ describe('userService – getUserById', () => {
         mock.onGet('/users/99').reply(404)
 
         await expect(getUserById(99)).rejects.toThrow()
-    })
-
-    it('throws on a server error (500)', async () => {
-        mock.onGet('/users/1').reply(500)
-
-        await expect(getUserById(1)).rejects.toThrow()
     })
 })

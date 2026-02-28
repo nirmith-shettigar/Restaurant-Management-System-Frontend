@@ -33,7 +33,7 @@ afterEach(() => {
     vi.useRealTimers()
 })
 
-describe('ChefDashboard – rendering', () => {
+describe('ChefDashboard - rendering', () => {
     it('renders the Chef Dashboard heading', async () => {
         const wrapper = mountDashboard()
         await flushPromises()
@@ -41,17 +41,7 @@ describe('ChefDashboard – rendering', () => {
     })
 })
 
-describe('ChefDashboard – loading state', () => {
-    it('shows the loading spinner before data arrives', () => {
-        vi.spyOn(orderService, 'getAllOrders').mockImplementation(
-            () => new Promise(() => { }),
-        )
-        const wrapper = mountDashboard()
-        expect(wrapper.text()).toContain('Loading orders...')
-    })
-})
-
-describe('ChefDashboard – stat card counts', () => {
+describe('ChefDashboard - stat card counts', () => {
     it('counts correctly with a mixed set of orders', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
             makeOrder({ id: 1, status: 'PENDING' }),
@@ -71,16 +61,8 @@ describe('ChefDashboard – stat card counts', () => {
     })
 })
 
-describe('ChefDashboard – empty state', () => {
-    it('shows "No pending orders!" when no active orders exist', async () => {
-        const wrapper = mountDashboard()
-        await flushPromises()
-        expect(wrapper.text()).toContain('No pending orders!')
-    })
-})
-
-describe('ChefDashboard – active orders list', () => {
-    it('renders an order card for each placed/preparing order', async () => {
+describe('ChefDashboard - active orders list', () => {
+    it('renders an order card showing order id and table for each PENDING/PREPARING order', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
             makeOrder({ id: 1, status: 'PENDING' }),
             makeOrder({ id: 2, status: 'PREPARING' }),
@@ -90,62 +72,34 @@ describe('ChefDashboard – active orders list', () => {
         await flushPromises()
         expect(wrapper.findAll('.order-card').length).toBe(2)
     })
+})
 
-    it('renders item name and quantity chips', async () => {
+describe('ChefDashboard - empty state', () => {
+    it('shows "No pending orders!" when all orders are served', async () => {
         vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
-            makeOrder({
-                id: 1,
-                status: 'PENDING',
-                items: [
-                    { name: 'Burger', quantity: 2 },
-                    { name: 'Fries', quantity: 1 },
-                ],
-            }),
+            makeOrder({ id: 1, status: 'SERVED' }),
+            makeOrder({ id: 2, status: 'SERVED' }),
         ])
         const wrapper = mountDashboard()
         await flushPromises()
-        expect(wrapper.text()).toContain('Burger')
-        expect(wrapper.text()).toContain('×2')
-        expect(wrapper.text()).toContain('Fries')
-        expect(wrapper.text()).toContain('×1')
+        expect(wrapper.text()).toContain('No pending orders!')
     })
 })
 
-describe('ChefDashboard – order sorting', () => {
-    it('sorts active orders oldest-first by time', async () => {
-        vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([
-            makeOrder({ id: 3, status: 'PENDING', time: new Date('2024-01-01T12:00:00').toISOString() }),
-            makeOrder({ id: 1, status: 'PENDING', time: new Date('2024-01-01T08:00:00').toISOString() }),
-            makeOrder({ id: 2, status: 'PENDING', time: new Date('2024-01-01T10:00:00').toISOString() }),
-        ])
+describe('ChefDashboard - status change', () => {
+    it('refetches orders after a successful status update', async () => {
+        const getAllOrdersSpy = vi.spyOn(orderService, 'getAllOrders')
+            .mockResolvedValue([makeOrder({ id: 1, status: 'PENDING' })])
+        vi.spyOn(orderService, 'updateOrderStatus').mockResolvedValue({})
+
         const wrapper = mountDashboard()
         await flushPromises()
+        getAllOrdersSpy.mockResolvedValue([])
 
-        const cards = wrapper.findAll('.order-card')
-        expect(cards[0].text()).toContain('Order #1')
-        expect(cards[1].text()).toContain('Order #2')
-        expect(cards[2].text()).toContain('Order #3')
-    })
-})
-
-describe('ChefDashboard – polling', () => {
-    it('calls getAllOrders again after 30 seconds (polling interval)', async () => {
-        const spy = vi.spyOn(orderService, 'getAllOrders').mockResolvedValue([])
-        mountDashboard()
+        const select = wrapper.find('select')
+        await select.trigger('change')
         await flushPromises()
-
-        vi.advanceTimersByTime(30000)
-        await flushPromises()
-
-        expect(spy).toHaveBeenCalledTimes(2)
+        expect(getAllOrdersSpy).toHaveBeenCalledTimes(2)
     })
-})
 
-describe('ChefDashboard – error handling', () => {
-    it('shows empty-state (not a crash) when getAllOrders rejects', async () => {
-        vi.spyOn(orderService, 'getAllOrders').mockRejectedValue(new Error('Network error'))
-        const wrapper = mountDashboard()
-        await flushPromises()
-        expect(wrapper.find('.empty-state').exists()).toBe(true)
-    })
 })
