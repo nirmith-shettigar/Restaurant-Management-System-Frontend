@@ -19,7 +19,6 @@ import DisplayUser from "../views/dashboards/manager/DisplayUser.vue";
 import CreateUser from "../views/dashboards/manager/CreateUser.vue";
 
 import ChefDashboard from "../views/dashboards/chef/ChefDashboard.vue";
-import KitchenOrders from "../views/dashboards/chef/KitchenOrders.vue";
 
 const routes = [
   {
@@ -96,11 +95,6 @@ const routes = [
     path: "/chef",
     name: "ChefDashboard",
     component: ChefDashboard,
-  },
-  {
-    path: "/chef/orders",
-    name: "KitchenOrders",
-    component: KitchenOrders,
   },
   // 404 Not Found
   {
