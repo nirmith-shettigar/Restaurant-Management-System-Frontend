@@ -8,7 +8,6 @@
           :src="item.image"
           :alt="item.name"
           class="w-full h-full object-cover"
-          @error="handleImageError"
         />
       </div>
 
@@ -33,8 +32,4 @@ const props = defineProps({
     required: true,
   },
 });
-
-const handleImageError = (event) => {
-  event.target.src = "https://via.placeholder.com/96x96?text=No+Image";
-};
 </script>

@@ -59,6 +59,7 @@ import {
 } from "../../services/orderService";
 import { formatTime } from "../../utils/timeUtil";
 import OrderDetailsModal from "./OrderDetailsModal.vue";
+import { toast } from "vue-sonner";
 
 const store = useStore();
 const orders = ref([]);
@@ -77,7 +78,7 @@ onMounted(async () => {
       orders.value = data;
     }
   } catch (error) {
-    console.error("Error loading orders:", error);
+    toast.error(error.message || "Error loading orders");
   } finally {
     loading.value = false;
   }
@@ -92,7 +93,7 @@ const handleStatusChange = async (order) => {
       orders.value = data;
     }
   } catch (error) {
-    console.error("Error updating order status:", error);
+    toast.error(error.message || "Error updating order status");
   }
 };
 

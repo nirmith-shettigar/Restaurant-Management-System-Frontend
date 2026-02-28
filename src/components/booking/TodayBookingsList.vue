@@ -67,8 +67,9 @@
 import { ref, onMounted } from "vue";
 import { Mail, Phone, Clock, Users } from "lucide-vue-next";
 import { getTodayBookings } from "../../services/bookingService";
-import { getUserById } from "../../services/userService";
+import { getUserById } from "../../services/customerService";
 import { formatTime } from "../../utils/timeUtil";
+import { toast } from "vue-sonner";
 
 const bookingsWithCustomers = ref([]);
 const loading = ref(true);
@@ -88,7 +89,7 @@ onMounted(async () => {
             customerPhone: customer.phone,
           };
         } catch (error) {
-          console.error(
+         toast.error(
             `Error fetching customer ${booking.customerId}:`,
             error,
           );
@@ -103,7 +104,7 @@ onMounted(async () => {
 
     bookingsWithCustomers.value = bookingsWithDetails;
   } catch (error) {
-    console.error("Error loading bookings:", error);
+    toast.error("Error loading bookings:", error);
   } finally {
     loading.value = false;
   }
