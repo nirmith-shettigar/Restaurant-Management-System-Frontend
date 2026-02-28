@@ -62,8 +62,8 @@ describe("invalid registration cases", () => {
         await expect(register({
             email: 'geetha@gmail.com',
             password: 'dfdf',
-            phone: '901458'
-        })).rejects.toThrow("Plese enter a valid phone number")
+            phone: '9014580'
+        })).rejects.toThrow("Please enter a valid phone number")
     })
 
     it("throws error if user exists already", async () => {
