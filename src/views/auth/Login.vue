@@ -32,8 +32,17 @@ const handleLogin = async () => {
 
     successMessage.value = "Login successful! Redirecting...";
 
+    const roleRoutes = {
+      WAITER: "/waiter",
+      CUSTOMER: "/customer",
+      CHEF: "/chef",
+      MANAGER: "/manager",
+    };
+
+    const destination = roleRoutes[response.user?.role] || "/";
+
     setTimeout(() => {
-      router.push("/");
+      router.push(destination);
     }, 2000);
   } catch (error) {
     console.log(error);

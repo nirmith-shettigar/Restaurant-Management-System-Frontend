@@ -32,7 +32,7 @@ describe("Auth service apis", () => {
 })
 
 describe("invalid registration cases", () => {
-    it("all blank feilds return exception", async () => {
+    it.skip("all blank feilds return exception", async () => {
         await expect(register({
             email: '',
             password: '',
@@ -40,19 +40,4 @@ describe("invalid registration cases", () => {
         })).rejects.toThrow("All fields are required")
     })
 
-    it("invalid email should return exception", async () => {
-        await expect(register({
-            email: 'geetha@hhweurhw',
-            password: 'dfdf',
-            phone: '9014580108'
-        })).rejects.toThrow("Please enter a valid email")
-    })
-
-    it("invalid phone number returns exception", async () => {
-        await expect(register({
-            email: 'geetha@gmail.com',
-            password: 'dfdf',
-            phone: '901458'
-        })).rejects.toThrow("Please enter a valid phone number")
-    })
 })

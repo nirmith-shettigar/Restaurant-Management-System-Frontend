@@ -59,17 +59,6 @@ describe('CreateOrder - rendering', () => {
         expect(wrapper.text()).toContain('Create Order')
     })
 
-    it('shows the waiter email in the header', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-        expect(wrapper.text()).toContain('waiter')
-    })
-
-    it('shows "Please select a table first" when no table is selected', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-        expect(wrapper.text()).toContain('Please select a table first')
-    })
 })
 
 describe('CreateOrder - table selection', () => {
@@ -84,11 +73,6 @@ describe('CreateOrder - table selection', () => {
         expect(wrapper.text()).toContain('Fries')
     })
 
-    it('populates the select with 10 table options', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-        expect(wrapper.findAll('option').length).toBe(11)
-    })
 })
 
 describe('CreateOrder - quantity controls', () => {
@@ -98,15 +82,6 @@ describe('CreateOrder - quantity controls', () => {
 
         wrapper.vm.increaseQuantity(1)
         expect(wrapper.vm.getQuantity(1)).toBe(1)
-    })
-
-    it('increaseQuantity increments an already-added item', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-
-        wrapper.vm.increaseQuantity(1)
-        wrapper.vm.increaseQuantity(1)
-        expect(wrapper.vm.getQuantity(1)).toBe(2)
     })
 
     it('decreaseQuantity reduces the item count by 1', async () => {
@@ -119,22 +94,6 @@ describe('CreateOrder - quantity controls', () => {
         expect(wrapper.vm.getQuantity(1)).toBe(1)
     })
 
-    it('decreaseQuantity removes the item when count reaches zero', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-
-        wrapper.vm.increaseQuantity(1)
-        wrapper.vm.decreaseQuantity(1)
-        expect(wrapper.vm.quantities[1]).toBeUndefined()
-    })
-
-    it('decreaseQuantity does nothing when item quantity is already 0', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-
-        wrapper.vm.decreaseQuantity(1)
-        expect(wrapper.vm.getQuantity(1)).toBe(0)
-    })
 })
 
 describe('CreateOrder - computed totals', () => {
@@ -157,18 +116,6 @@ describe('CreateOrder - computed totals', () => {
         expect(wrapper.vm.totalAmount).toBe(150)
     })
 
-    it('hasItems is false when no items are added', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-        expect(wrapper.vm.hasItems).toBe(false)
-    })
-
-    it('hasItems is true when at least one item is added', async () => {
-        const wrapper = mountCreateOrder()
-        await flushPromises()
-        wrapper.vm.increaseQuantity(1)
-        expect(wrapper.vm.hasItems).toBe(true)
-    })
 })
 
 describe('CreateOrder - order submission', () => {

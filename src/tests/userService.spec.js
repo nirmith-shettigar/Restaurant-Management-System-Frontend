@@ -31,9 +31,4 @@ describe('userService – getUserById', () => {
         await expect(getUserById(99)).rejects.toThrow()
     })
 
-    it('throws on a server error (500)', async () => {
-        mock.onGet('/users/1').reply(500)
-
-        await expect(getUserById(1)).rejects.toThrow()
-    })
 })

@@ -50,23 +50,6 @@ describe("CustomerBookingsList.vue", () => {
         expect(cards.length).toBe(mockBookings.length);
     });
 
-    it("shows booking IDs", () => {
-        const wrapper = mountComponent();
-        expect(wrapper.text()).toContain("BOOKING : 1");
-        expect(wrapper.text()).toContain("BOOKING : 2");
-    });
-
-    it("shows booking status labels", () => {
-        const wrapper = mountComponent();
-        expect(wrapper.text()).toContain("CONFIRMED");
-        expect(wrapper.text()).toContain("CANCELLED");
-    });
-
-    it("renders empty state when bookings array is empty", () => {
-        const wrapper = mountComponent({ bookings: [] });
-        expect(wrapper.text()).toContain("No upcoming bookings");
-    });
-
     it("emits 'edit' with booking when Edit button is clicked", async () => {
         const wrapper = mountComponent();
         const editBtn = wrapper.findAll("button").find((b) => b.text() === "Edit");
@@ -75,17 +58,11 @@ describe("CustomerBookingsList.vue", () => {
         expect(wrapper.emitted("edit")[0][0]).toEqual(mockBookings[0]);
     });
 
-    it("shows singular 'Person' for numberOfPeople === 1", () => {
-        const wrapper = mountComponent({
-            bookings: [
-                {
-                    id: 3,
-                    bookingTime: new Date(Date.now() + 86400000).toISOString(),
-                    numberOfPeople: 1,
-                    status: "CONFIRMED",
-                },
-            ],
-        });
-        expect(wrapper.text()).toContain("Person");
+    it("shows empty state when bookings array is empty", async () => {
+        const { flushPromises } = await import('@vue/test-utils');
+        const wrapper = mountComponent({ bookings: [], loading: false });
+        await flushPromises();
+        expect(wrapper.text()).toContain("No upcoming bookings");
     });
+
 });

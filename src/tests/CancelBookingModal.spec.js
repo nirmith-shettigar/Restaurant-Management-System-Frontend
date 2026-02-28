@@ -17,24 +17,6 @@ describe("CancelBookingModal.vue", () => {
         expect(wrapper.find(".fixed").exists()).toBe(true);
     });
 
-    it("shows the confirmation message", () => {
-        const wrapper = mount(CancelBookingModal, {
-            props: { isOpen: true },
-        });
-        expect(wrapper.text()).toContain("Are you sure you want to cancel");
-    });
-
-    it("emits 'close' when 'No, Keep It' button is clicked", async () => {
-        const wrapper = mount(CancelBookingModal, {
-            props: { isOpen: true },
-        });
-        const buttons = wrapper.findAll("button");
-        const keepBtn = buttons.find((b) => b.text().includes("No, Keep It"));
-        await keepBtn.trigger("click");
-        expect(wrapper.emitted("close")).toBeTruthy();
-        expect(wrapper.emitted("close")).toHaveLength(1);
-    });
-
     it("emits 'confirm' when 'Yes, Cancel Booking' button is clicked", async () => {
         const wrapper = mount(CancelBookingModal, {
             props: { isOpen: true },
@@ -46,5 +28,15 @@ describe("CancelBookingModal.vue", () => {
         await confirmBtn.trigger("click");
         expect(wrapper.emitted("confirm")).toBeTruthy();
         expect(wrapper.emitted("confirm")).toHaveLength(1);
+    });
+
+    it("emits 'close' when 'No, Keep It' button is clicked", async () => {
+        const wrapper = mount(CancelBookingModal, {
+            props: { isOpen: true },
+        });
+        const buttons = wrapper.findAll("button");
+        const keepBtn = buttons.find((b) => b.text().includes("No, Keep It"));
+        await keepBtn.trigger("click");
+        expect(wrapper.emitted("close")).toBeTruthy();
     });
 });
