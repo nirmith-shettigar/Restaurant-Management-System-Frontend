@@ -7,7 +7,7 @@ vi.mock("../services/api", () => ({
         get: vi.fn(),
         post: vi.fn(),
         patch: vi.fn(),
-        delete:vi.fn()
+        delete: vi.fn()
     }
 }))
 
@@ -50,7 +50,6 @@ describe("testing booking service", () => {
                 "status": "booked"
             }
         ]
-
         const getTodayBookingsFromData = (bookings) => {
             const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
 
@@ -61,18 +60,12 @@ describe("testing booking service", () => {
                 return bookingDate === today;
             });
         };
-
         const mockBookingResponse = getTodayBookingsFromData(mockData)
         axiosInstance.get.mockResolvedValue({
             data: mockBookingResponse
         })
-
-
-
         const response = await getTodayBookings()
         expect(response).toEqual(mockBookingResponse)
-
-
     })
 
     it("get all bookings by customer id", async () => {
@@ -85,21 +78,16 @@ describe("testing booking service", () => {
                 "status": "booked"
             }
         ]
-
         const now = new Date();
-
         const mockResponse = mockData.filter((booking) => {
             const bookingDate = new Date(booking.bookingTime);
             return bookingDate >= now && booking.status !== "CANCELLED";
         });
-
         axiosInstance.get.mockResolvedValue({
             data: mockResponse
         })
-
         const response = await getUpcomingBookingsByCustomerId("customer_101")
         expect(response).toEqual(mockResponse)
-
     })
 
     it("create booking", async () => {
@@ -109,15 +97,11 @@ describe("testing booking service", () => {
             "numberOfPeople": 25,
             "time": "2026-02-24T18:00:00Z"
         }
-
         axiosInstance.post.mockResolvedValue({
             data: mockData
         })
-
         const response = await createBooking(mockData)
         expect(response).toEqual(mockData)
-
-
     })
 
     it("update booking return updated booking", async () => {
@@ -127,17 +111,14 @@ describe("testing booking service", () => {
             "numberOfPeople": 20,
             "time": "2026-02-24T18:00:00Z"
         }
-
         axiosInstance.patch.mockResolvedValue({
             data: mockResponse
         })
-
         const response = await updateBooking("e872", {
             "customerId": "customer_101",
             "numberOfPeople": 20,
             "time": "2026-02-24T18:00:00Z"
         })
-
         expect(response).toEqual(mockResponse)
     })
 
@@ -153,7 +134,6 @@ describe("testing booking service", () => {
         axiosInstance.delete.mockResolvedValue({
             data: mockData
         })
-
         const response = await cancelBooking("booking_002")
         expect(response).toEqual(mockData)
     })

@@ -12,7 +12,6 @@ vi.mock("../services/api", () => ({
 
 describe("testing order services", () => {
     it("get all orders return all orders", async () => {
-
         const mockOrder = [{
             "tableId": 3,
             "time": "2026-02-24T12:15:00Z",
@@ -32,7 +31,6 @@ describe("testing order services", () => {
             ],
             "status": "placed"
         }]
-
         axiosInstance.get.mockResolvedValue({
             data: mockOrder
         })
@@ -81,11 +79,9 @@ describe("testing order services", () => {
                 ]
             }
         ]
-
         axiosInstance.get.mockResolvedValue({
             data: mockOrderByWaiterId
         })
-
         const response = await getOrdersByWaiterId(1)
         expect(response.length).toBe(2)
     })
@@ -116,7 +112,6 @@ describe("testing order services", () => {
             data: mockResponse
         })
         const response = await updateOrderStatus("order_001", "served")
-
         expect(response).toEqual(mockResponse)
     })
 
