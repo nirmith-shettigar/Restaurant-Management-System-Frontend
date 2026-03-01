@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-import CancelBookingModal from "../components/booking/CancelBookingModal.vue";
+import CancelBookingModal from "../../components/booking/CancelBookingModal.vue";
 
 describe("CancelBookingModal.vue", () => {
     it("does not render content when isOpen is false", () => {

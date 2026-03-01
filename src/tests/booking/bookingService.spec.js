@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
-import axiosInstance from "../services/api";
-import { getTodayBookings, getUpcomingBookingsByCustomerId, createBooking, updateBooking, cancelBooking } from "../services/bookingService.js"
+import axiosInstance from "../../services/api";
+import { getTodayBookings, getUpcomingBookingsByCustomerId, createBooking, updateBooking, cancelBooking } from "../../services/bookingService.js"
 
-vi.mock("../services/api", () => ({
+vi.mock("../../services/api", () => ({
     default: {
         get: vi.fn(),
         post: vi.fn(),

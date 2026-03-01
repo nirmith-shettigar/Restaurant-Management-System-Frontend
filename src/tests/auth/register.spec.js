@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import Register from '../views/auth/Register.vue'
-import api from '../services/api'
+import Register from '../../views/auth/Register.vue'
+import api from '../../services/api'
 
 const router = createRouter({
     history: createMemoryHistory(),

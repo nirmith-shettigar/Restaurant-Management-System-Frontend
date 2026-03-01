@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatTime, formatDate } from "../utils/timeUtil";
+import { formatTime, formatDate } from "../../utils/timeUtil";
 
 describe("timeUtil", () => {
     describe("formatTime", () => {

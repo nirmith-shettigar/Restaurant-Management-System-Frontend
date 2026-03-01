@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createStore } from 'vuex'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import CustomerMenu from '../views/dashboards/customer/CustomerMenu.vue'
-import * as menuService from '../services/menuService'
+import CustomerMenu from '../../views/dashboards/customer/CustomerMenu.vue'
+import * as menuService from '../../services/menuService'
 
 const makeStore = ({ isAuthenticated = true, user = { id: 1, role: 'CUSTOMER' } } = {}) =>
     createStore({

@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import TodayBookingsList from "../components/booking/TodayBookingsList.vue";
-import * as bookingService from "../services/bookingService";
-import * as userService from "../services/customerService";
+import TodayBookingsList from "../../components/booking/TodayBookingsList.vue";
+import * as bookingService from "../../services/bookingService";
+import * as userService from "../../services/customerService";
 
-vi.mock("../services/bookingService");
-vi.mock("../services/customerService");
+vi.mock("../../services/bookingService");
+vi.mock("../../services/customerService");
 
 describe("TodayBookingsList.vue", () => {
     it("shows loading state initially", () => {

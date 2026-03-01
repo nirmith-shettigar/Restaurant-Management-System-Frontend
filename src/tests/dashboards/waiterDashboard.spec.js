@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createStore } from 'vuex'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import WaiterDashboard from '../views/dashboards/waiter/WaiterDashboard.vue'
+import WaiterDashboard from '../../views/dashboards/waiter/WaiterDashboard.vue'
 
 const makeStore = ({ isAuthenticated = true, user = { id: 1, role: 'WAITER' } } = {}) =>
     createStore({

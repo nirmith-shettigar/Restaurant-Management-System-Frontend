@@ -1,9 +1,9 @@
 import { describe, expect, it, vi, beforeEach } from "vitest"
-import CreateUser from "../views/dashboards/manager/CreateUser.vue"
+import CreateUser from "../../views/dashboards/manager/CreateUser.vue"
 import { mount } from "@vue/test-utils"
-import { register } from "../services/authService"
+import { register } from "../../services/authService"
 
-vi.mock("../services/authService", () => ({
+vi.mock("../../services/authService", () => ({
     register: vi.fn()
 }))
 

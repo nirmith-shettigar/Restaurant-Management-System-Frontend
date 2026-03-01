@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
-import api from '../services/api'
-import { getUserById } from '../services/customerService'
+import api from '../../services/api'
+import { getUserById } from '../../services/customerService'
 
 const mock = new MockAdapter(api)
 

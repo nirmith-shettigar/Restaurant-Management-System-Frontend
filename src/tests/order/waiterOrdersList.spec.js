@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import { createStore } from "vuex";
-import WaiterOrdersList from "../components/order/WaiterOrdersList.vue";
-import * as orderService from "../services/orderService";
+import WaiterOrdersList from "../../components/order/WaiterOrdersList.vue";
+import * as orderService from "../../services/orderService";
 
-vi.mock("../services/orderService");
+vi.mock("../../services/orderService");
 
 const mockOrders = [
     { id: 101, tableId: 3, status: "PREPARED", time: new Date().toISOString() },

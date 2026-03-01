@@ -1,8 +1,8 @@
-import { getAllOrders, getOrdersByWaiterId, updateOrderStatus } from "../services/orderService"
+import { getAllOrders, getOrdersByWaiterId, updateOrderStatus } from "../../services/orderService"
 import { describe, it, expect, vi } from "vitest"
-import axiosInstance from "../services/api"
+import axiosInstance from "../../services/api"
 
-vi.mock("../services/api", () => ({
+vi.mock("../../services/api", () => ({
     default: {
         get: vi.fn(),
         post: vi.fn(),

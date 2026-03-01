@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createStore } from 'vuex'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import CreateOrder from '../views/dashboards/waiter/CreateOrder.vue'
-import * as menuService from '../services/menuService'
-import * as orderService from '../services/orderService'
+import CreateOrder from '../../views/dashboards/waiter/CreateOrder.vue'
+import * as menuService from '../../services/menuService'
+import * as orderService from '../../services/orderService'
 
 const mockMenuItems = [
     { id: 1, name: 'Burger', price: 100, description: 'Juicy burger', image: '' },

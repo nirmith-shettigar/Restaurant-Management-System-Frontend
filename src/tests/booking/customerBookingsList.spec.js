@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import CustomerBookingsList from "../components/booking/CustomerBookingsList.vue";
+import CustomerBookingsList from "../../components/booking/CustomerBookingsList.vue";
 
 const mockBookings = [
     {

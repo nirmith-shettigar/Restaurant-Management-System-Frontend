@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-import MenuItem from "../components/menu/MenuItem.vue";
+import MenuItem from "../../components/menu/MenuItem.vue";
 
 const mockItem = {
   id: 1,

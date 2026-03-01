@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ManagerDashboard from "../views/dashboards/manager/ManagerDashboard.vue";
+import ManagerDashboard from "../../views/dashboards/manager/ManagerDashboard.vue";
 import { vi, describe, it, expect } from "vitest"
 
 describe("Manager Dashboard", () => {

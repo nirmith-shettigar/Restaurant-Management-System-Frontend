@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { createStore } from 'vuex'
-import authModule from '../store/modules/auth'
+import authModule from '../../store/modules/auth'
 
 const makeStore = () =>
     createStore({

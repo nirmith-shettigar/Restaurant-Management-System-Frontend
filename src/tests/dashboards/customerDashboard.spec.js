@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createStore } from 'vuex'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import CustomerDashboard from '../views/dashboards/customer/CustomerDashboard.vue'
-import * as bookingService from '../services/bookingService'
+import CustomerDashboard from '../../views/dashboards/customer/CustomerDashboard.vue'
+import * as bookingService from '../../services/bookingService'
 
 const CustomerBookingsListStub = {
     name: 'CustomerBookingsList',

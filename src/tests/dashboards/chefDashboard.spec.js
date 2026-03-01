@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import ChefDashboard from '../views/dashboards/chef/ChefDashboard.vue'
-import * as orderService from '../services/orderService'
+import ChefDashboard from '../../views/dashboards/chef/ChefDashboard.vue'
+import * as orderService from '../../services/orderService'
 
 const router = createRouter({
     history: createMemoryHistory(),

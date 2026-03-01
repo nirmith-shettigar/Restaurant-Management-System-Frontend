@@ -1,8 +1,8 @@
 import { flushPromises, mount } from "@vue/test-utils";
-import DisplayUser from "../views/dashboards/manager/DisplayUser.vue";
+import DisplayUser from "../../views/dashboards/manager/DisplayUser.vue";
 import { vi, describe, it, expect } from "vitest"
 
-vi.mock("../services/ManagerService", () => ({
+vi.mock("../../services/managerService", () => ({
     getUsers: vi.fn()
 }))
 
@@ -11,7 +11,7 @@ vi.mock("vue-sonner", () => ({
     Toaster: { template: "<div />" }
 }))
 
-import { getUsers } from "../services/managerService"
+import { getUsers } from "../../services/managerService" 
 
 const mockUsers = [
     { id: 1, name: "A", email: "a@test.com", phone: "111", role: "chef" },

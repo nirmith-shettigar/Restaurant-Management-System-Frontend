@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mount } from "@vue/test-utils";
-import BookTableModal from "../components/booking/BookTableModal.vue";
+import BookTableModal from "../../components/booking/BookTableModal.vue";
 
 const futureDate = () => {
     const d = new Date();
