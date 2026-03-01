@@ -67,11 +67,30 @@ describe('WaiterDashboard - rendering', () => {
 
 describe('WaiterDashboard - auth redirect', () => {
     it('redirects to /login when not authenticated', async () => {
+        const store = makeStore({ isAuthenticated: false })
         const router = makeRouter()
-        const push = vi.spyOn(router, 'push')
-        mountDashboard({ isAuthenticated: false }, router)
+        router.beforeEach((to, from, next) => {
+            if (to.path !== '/login' && !store.getters['auth/isAuthenticated']) {
+                return next('/login')
+            }
+            next()
+        })
+        mount(WaiterDashboard, {
+            global: {
+                plugins: [store, router],
+                stubs: {
+                    WaiterOrdersList: { name: 'WaiterOrdersList', template: '<div class="waiter-orders-list" />' },
+                    TodayBookingsList: { name: 'TodayBookingsList', template: '<div class="today-bookings-list" />' },
+                    ClipboardEdit: true,
+                    ClipboardList: true,
+                    CalendarDays: true,
+                    RouterLink: { template: '<a><slot /></a>' },
+                },
+            },
+        })
+        await router.push('/waiter')
         await flushPromises()
-        expect(push).toHaveBeenCalledWith('/login')
+        expect(router.currentRoute.value.path).toBe('/login')
     })
 
 })

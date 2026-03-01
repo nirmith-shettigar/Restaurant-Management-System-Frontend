@@ -187,7 +187,7 @@ export default {
         waiterId: user.value.id,
         time: new Date().toISOString(),
         items: Object.entries(quantities).map(([itemId, quantity]) => ({
-          itemId: itemId,
+          itemId: Number(itemId) || itemId,
           quantity: quantity,
         })),
       };

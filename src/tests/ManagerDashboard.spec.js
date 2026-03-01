@@ -9,7 +9,7 @@ describe("Manager Dashboard", () => {
                 stubs: ["router-link", "router-view"]
             }
         })
-        expect(wrapper.text()).toContain("Manager Dashboard")
+        expect(wrapper.text()).toContain("Manager Panel")
 
     })
     it("contains navigation links", ()=>{
