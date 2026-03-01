@@ -152,7 +152,7 @@ const orderItemsWithDetails = computed(() => {
   if (!props.order.items || !menuItems.value.length) return [];
 
   return props.order.items.map((item) => {
-    const menuItem = menuItems.value.find((mi) => mi.id === item.itemId);
+    const menuItem = menuItems.value.find((mi) => String(mi.id) === String(item.itemId));
     return {
       itemId: item.itemId,
       quantity: item.quantity,
