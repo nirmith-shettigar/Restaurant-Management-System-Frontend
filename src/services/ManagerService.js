@@ -1,11 +1,6 @@
-import axiosInstance from "./api";
+import api from "./api";
 
-export default {
-  addUser(user){
-    return axiosInstance.post('/users', user)
-  },
-
-  getUsers(){
-    return axiosInstance.get('/users')
+  export async function getUsers() {
+    const response = await api.get("/users");
+    return response.data;
   }
-}
