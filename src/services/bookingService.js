@@ -13,15 +13,17 @@ export const getTodayBookings = async () => {
 };
 
 export const getUpcomingBookingsByCustomerId = async (customerId) => {
-  const response = await api.get("/bookings", {
-    params: { customerId },
-  });
+  const response = await api.get("/bookings");
   const now = new Date();
 
   return response.data.filter((booking) => {
     const bookingDate = new Date(booking.bookingTime);
-    return bookingDate >= now && booking.status !== "CANCELLED";
-  });
+    return (
+      booking.customerId === customerId &&
+      bookingDate >= now &&
+      booking.status !== "CANCELLED"
+    )
+  })
 };
 
 export const createBooking = async (bookingData) => {
