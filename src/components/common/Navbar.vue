@@ -2,14 +2,13 @@
   <nav class="shadow-md bg-white text-black sticky top-0 z-50">
     <div class="px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-15">
-        <!-- Left: Logo and Name -->
         <div class="flex items-center">
-          <router-link to="/" class="flex items-center space-x-3">
-            Logo
+          <router-link to="/" class="flex items-center space-x-2">
+            <UtensilsCrossed :size="28" class="text-blue-600" />
+            <span class="text-2xl font-bold text-gray-800">Mealio</span>
           </router-link>
         </div>
 
-        <!-- Right: Login and Register Buttons OR Profile Icon -->
         <div class="flex items-center space-x-4">
           <template v-if="!isAuthenticated">
             <router-link
@@ -39,14 +38,15 @@
                 class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
               >
                 <button
-                  class="w-full text-left px-4 py-3 rounded-t-lg hover:bg-gray-200 transition flex items-center space-x-2"
+                  @click="goToDashboard"
+                  class="w-full text-left px-4 py-3 rounded-t-lg hover:bg-gray-200 transition flex items-center space-x-2 cursor-pointer"
                 >
                   <User :size="16" class="text-gray-600" />
-                  <span class="text-gray-700">Profile</span>
+                  <span class="text-gray-700">Dashboard</span>
                 </button>
                 <button
                   @click="handleLogout"
-                  class="w-full text-left px-4 py-3 rounded-b-lg hover:bg-red-500 group transition flex items-center space-x-2"
+                  class="w-full text-left px-4 py-3 rounded-b-lg hover:bg-red-500 group transition flex items-center space-x-2 cursor-pointer"
                 >
                   <LogOut
                     :size="16"
@@ -68,13 +68,27 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { User, LogOut } from "lucide-vue-next";
+import { User, LogOut, UtensilsCrossed } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 
 const store = useStore();
 const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"]);
+const userRole = computed(() => store.getters["auth/userRole"]);
 const showDropdown = ref(false);
 const router = useRouter();
+
+const goToDashboard = () => {
+  const dashboardMap = {
+    CUSTOMER: "/customer",
+    WAITER: "/waiter",
+    CHEF: "/chef",
+    MANAGER: "/manager",
+  };
+
+  const dashboardPath = dashboardMap[userRole.value] || "/";
+  showDropdown.value = false;
+  router.push(dashboardPath);
+};
 
 const handleLogout = () => {
   store.dispatch("auth/logout");

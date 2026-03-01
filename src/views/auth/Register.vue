@@ -19,8 +19,7 @@ const handleRegister = async () => {
   isLoading.value = true;
 
   try {
-    const response = await register(formData.value);
-
+    await register(formData.value);
     toast.success("Registration successful! Redirecting...");
     setTimeout(() => {
       router.push("/login");
@@ -34,25 +33,44 @@ const handleRegister = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-5">
+  <div
+    class="min-h-screen flex items-center justify-center backgroundColor p-5"
+  >
     <Toaster position="top-center" />
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h1 class="text-2xl font-bold mb-6 text-center">User Registration</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">
+        User <span class="text-blue-500">Registration</span>
+      </h1>
 
       <form @submit.prevent="handleRegister" class="space-y-5">
         <div>
           <label class="label">Email</label>
-          <input type="email" v-model="formData.email" class="input" />
+          <input
+            type="email"
+            v-model="formData.email"
+            class="input"
+            placeholder="Enter your email"
+          />
         </div>
 
         <div>
           <label class="label">Phone</label>
-          <input type="tel" v-model="formData.phone" class="input" />
+          <input
+            type="tel"
+            v-model="formData.phone"
+            class="input"
+            placeholder="Enter your phone number"
+          />
         </div>
 
         <div>
           <label class="label">Password</label>
-          <input type="password" v-model="formData.password" class="input" />
+          <input
+            type="password"
+            v-model="formData.password"
+            class="input"
+            placeholder="Enter your password"
+          />
         </div>
 
         <button
@@ -62,6 +80,12 @@ const handleRegister = async () => {
           {{ isLoading ? "Registering..." : "Register" }}
         </button>
       </form>
+      <p class="mt-2 text-center">
+        Already have an account?
+        <router-link to="/login" class="underline text-blue-500">
+          Login
+        </router-link>
+      </p>
     </div>
   </div>
 </template>

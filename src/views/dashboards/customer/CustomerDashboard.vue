@@ -8,10 +8,14 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div @click="openBookingModal"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div
+          @click="openBookingModal"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer"
+        >
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <div
+              class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+            >
               <CalendarPlus :size="24" class="text-purple-600" />
             </div>
             <div>
@@ -21,9 +25,14 @@
           </div>
         </div>
 
-        <router-link to="/customer/menu" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+        <router-link
+          to="/customer/menu"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
+        >
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+            <div
+              class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center"
+            >
               <UtensilsCrossed :size="24" class="text-orange-600" />
             </div>
             <div>
@@ -34,11 +43,19 @@
         </router-link>
       </div>
 
-      <CustomerBookingsList :bookings="bookings" :loading="loading" @edit="openEditModal"
-        @cancel="handleCancelBooking" />
+      <CustomerBookingsList
+        :bookings="bookings"
+        :loading="loading"
+        @edit="openEditModal"
+        @cancel="handleCancelBooking"
+      />
 
-      <BookTableModal :isOpen="isModalOpen" :booking="selectedBooking" @close="closeModal"
-        @submit="handleBookingSubmit" />
+      <BookTableModal
+        :isOpen="isModalOpen"
+        :booking="selectedBooking"
+        @close="closeModal"
+        @submit="handleBookingSubmit"
+      />
     </div>
   </div>
 </template>
@@ -59,7 +76,6 @@ import {
 import { toast, Toaster } from "vue-sonner";
 
 const store = useStore();
-const router = useRouter();
 
 const bookings = ref([]);
 const loading = ref(true);
@@ -77,7 +93,7 @@ const loadBookings = async () => {
       bookings.value = data;
     }
   } catch (error) {
-    toast.error( error.message || "Error loading bookings");
+    toast.error(error.message || "Error loading bookings");
   } finally {
     loading.value = false;
   }
@@ -119,7 +135,7 @@ const handleBookingSubmit = async (bookingData) => {
 const handleCancelBooking = async (bookingId) => {
   try {
     await cancelBooking(bookingId);
-    toast.success("Booking cancelled successfully!")
+    toast.success("Booking cancelled successfully!");
     await loadBookings();
   } catch (error) {
     toast.error(error.message || "Error cancelling booking");
@@ -127,15 +143,6 @@ const handleCancelBooking = async (bookingId) => {
 };
 
 onMounted(async () => {
-  const isAuthenticated = store.getters["auth/isAuthenticated"];
-  const userRole = store.getters["auth/userRole"];
-
-  if (!isAuthenticated) {
-    router.push("/login");
-  } else if (userRole !== "CUSTOMER") {
-    router.push("/");
-  } else {
-    await loadBookings();
-  }
+  await loadBookings();
 });
 </script>
