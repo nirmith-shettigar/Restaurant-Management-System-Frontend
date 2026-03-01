@@ -1,39 +1,58 @@
 <template>
-  <div class="flex h-screen w-screen bg-gray-100">
-
-
-    <div class="w-1/4 bg-slate-900 text-white p-10 flex flex-col justify-between fixed left-0 top-10 h-screen">
-
-      <div>
-        <h1 class="text-3xl font-bold mb-12">
-          Manager Dashboard
+  <div class="min-h-screen bg-gray-50 flex">
+    <aside
+      class="fixed left-0 top-0 h-screen bg-white border-r border-gray-200 z-40 w-20 md:w-64 flex flex-col shadow-sm"
+    >
+      <div class="flex-1 flex flex-col py-4 md:pt-6 mt-14">
+        <h1
+          class="mb-6 hidden md:block text-2xl text-center font-bold text-gray-800"
+        >
+          Manager Panel
         </h1>
 
-        <nav class="flex flex-col space-y-4">
-          <router-link to="/manager/create-user"
-            class="p-4 rounded-lg bg-slate-800 hover:bg-slate-700 transition text-lg">
-            Create Users
+        <nav class="flex flex-col">
+          <router-link
+            to="/manager/create-user"
+            class="sidebar-link flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 transition group relative"
+          >
+            <UserPlus :size="20" />
+            <span class="hidden md:inline text-base">Create User</span>
           </router-link>
 
-          <router-link to="/manager/users" class="p-4 rounded-lg bg-slate-800 hover:bg-slate-700 transition text-lg">
-            View All Users
+          <router-link
+            to="/manager/users"
+            class="sidebar-link flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 transition group relative"
+          >
+            <Users :size="20" />
+            <span class="hidden md:inline text-base">All Users</span>
           </router-link>
         </nav>
       </div>
 
-      <div class="text-sm text-gray-400">
+      <div class="p-4 text-xs text-gray-500 text-center hidden md:block">
         © 2026 Manager Panel
       </div>
+    </aside>
 
-    </div>
-
-    <div class="ml-[20%] pl-[20%] w-3/4 h-screen p-12 overflow-y-auto bg-white">
+    <main class="flex-1 ml-18 md:ml-64 p-4 md:p-8">
       <router-view />
-    </div>
-
+    </main>
   </div>
 </template>
 
-<script>
-export default {}
+<script setup>
+import { UserPlus, Users } from "lucide-vue-next";
 </script>
+
+<style scoped>
+.sidebar-link.router-link-active {
+  background-color: rgb(219 234 254);
+  color: #1e40af;
+  border-right: 4px solid #2563eb;
+  padding-right: 5px;
+}
+
+.sidebar-link.router-link-active svg {
+  color: #2563eb;
+}
+</style>
