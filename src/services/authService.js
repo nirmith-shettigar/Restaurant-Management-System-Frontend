@@ -2,7 +2,7 @@ import api from "./api";
 import { isValidEmail, isValidPhoneNumber } from "../utils/validator";
 
 export const register = async (userData) => {
-  if (!userData.email || !userData.password || !userData.phone) {
+  if (!userData.email || !userData.password || !userData.phone || userData.password.trim() === "") {
     throw new Error("All fields are required");
   }
 
@@ -34,7 +34,7 @@ export const register = async (userData) => {
 };
 
 export const login = async (credentials) => {
-  if (!credentials.email || !credentials.password || !credentials.role) {
+  if (!credentials.email || !credentials.password || !credentials.role || credentials.password.trim() === "") {
     throw new Error("All fields are required");
   }
 
