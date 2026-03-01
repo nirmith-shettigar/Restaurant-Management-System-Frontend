@@ -19,13 +19,13 @@ export const updateOrderStatus = async (id, status) => {
 
 export const createOrder = async (order) => {
   if (!order.tableId || !order.waiterId || !order.items?.length) {
-    throw new Error('Missing required fields: tableId, waiterId, or items');
+    throw new Error("Missing required fields: tableId, waiterId, or items");
   }
 
-  const response = await api.post('/orders', {
+  const response = await api.post("/orders", {
     ...order,
-    status: "PENDING"
-  })
+    status: "PENDING",
+  });
 
   return response.data;
-}
+};

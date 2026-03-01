@@ -20,5 +20,4 @@ describe("MenuItem.vue", () => {
     const wrapper = mount(MenuItem, { props: { item: mockItem } });
     expect(wrapper.text()).toContain("₹250");
   });
-
 });

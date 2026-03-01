@@ -89,10 +89,7 @@ onMounted(async () => {
             customerPhone: customer.phone,
           };
         } catch (error) {
-         toast.error(
-            `Error fetching customer ${booking.customerId}:`,
-            error,
-          );
+          toast.error(`Error fetching customer ${booking.customerId}:`, error);
           return {
             ...booking,
             customerEmail: "N/A",

@@ -27,7 +27,7 @@ const handleLogin = async () => {
       user: response.user,
       token: response.token,
     });
-    
+
     const destination = dashboardMap[response.user?.role] || "/";
 
     toast.success("Login successful! Redirecting...");

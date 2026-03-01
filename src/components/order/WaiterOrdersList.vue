@@ -10,7 +10,9 @@
         class="bg-white rounded-lg shadow p-6 flex items-center justify-between hover:shadow-md transition-shadow"
       >
         <div class="space-y-1">
-          <p class="text-md font-semibold text-gray-800">{{ "ORDER : " + order.id }}</p>
+          <p class="text-md font-semibold text-gray-800">
+            {{ "ORDER : " + order.id }}
+          </p>
           <p class="text-sm text-gray-600">Table: {{ order.tableId }}</p>
           <p class="text-xs text-gray-500">{{ formatTime(order.time) }}</p>
         </div>

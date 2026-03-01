@@ -26,9 +26,9 @@ const mutations = {
     state.isAuthenticated = false;
   },
   INITIALIZE_AUTH(state) {
-    const user = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    
+    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
     if (user && token) {
       try {
         state.user = JSON.parse(user);
@@ -45,28 +45,28 @@ const mutations = {
 
 const actions = {
   login({ commit }, { user, token }) {
-    commit('SET_USER', user);
-    commit('SET_TOKEN', token);
-    
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
+    commit("SET_USER", user);
+    commit("SET_TOKEN", token);
+
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
   },
-  
+
   logout({ commit }) {
-    commit('CLEAR_AUTH');
-    
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    commit("CLEAR_AUTH");
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   },
-  
+
   initializeAuth({ commit }) {
-    commit('INITIALIZE_AUTH');
+    commit("INITIALIZE_AUTH");
   },
-  
+
   updateUser({ commit, state }, userData) {
     const updatedUser = { ...state.user, ...userData };
-    commit('SET_USER', updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
+    commit("SET_USER", updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
   },
 };
 

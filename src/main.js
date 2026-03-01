@@ -6,6 +6,6 @@ import store from "./store";
 
 const app = createApp(App);
 
-store.dispatch('auth/initializeAuth');
+store.dispatch("auth/initializeAuth");
 
 app.use(router).use(store).mount("#app");

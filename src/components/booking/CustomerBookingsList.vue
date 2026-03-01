@@ -6,16 +6,29 @@
       Loading bookings...
     </div>
 
-    <div v-else-if="bookings.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="booking in bookings" :key="booking.id"
-        class="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 border border-gray-100">
+    <div
+      v-else-if="bookings.length > 0"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <div
+        v-for="booking in bookings"
+        :key="booking.id"
+        class="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 border border-gray-100"
+      >
         <div class="space-y-2">
-          <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-            <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          <div
+            class="flex items-center justify-between border-b border-gray-100 pb-3"
+          >
+            <h3
+              class="text-lg font-semibold text-gray-800 flex items-center gap-2"
+            >
               <Hash :size="18" class="text-gray-400" />
               {{ "BOOKING : " + booking.id }}
             </h3>
-            <span class="px-3 py-1 text-xs font-semibold rounded-full" :class="getStatusClass(booking.status)">
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full"
+              :class="getStatusClass(booking.status)"
+            >
               {{ booking.status }}
             </span>
           </div>
@@ -25,14 +38,14 @@
               <Calendar :size="18" class="text-purple-500" />
               <span class="text-sm font-medium">{{
                 formatDate(booking.bookingTime)
-                }}</span>
+              }}</span>
             </div>
 
             <div class="flex items-center gap-2 text-gray-700">
               <Clock :size="18" class="text-purple-500" />
               <span class="text-sm font-medium">{{
                 formatTime(booking.bookingTime)
-                }}</span>
+              }}</span>
             </div>
 
             <div class="flex items-center gap-2 text-gray-700">
@@ -45,13 +58,17 @@
           </div>
 
           <div class="flex gap-2">
-            <button @click="handleEdit(booking)"
-              class="flex-1 px-3 py-2 text-black rounded-lg shadow-md ring-1 text-sm font-medium flex items-center justify-center gap-1 cursor-pointer">
+            <button
+              @click="handleEdit(booking)"
+              class="flex-1 px-3 py-2 text-black rounded-lg shadow-md ring-1 text-sm font-medium flex items-center justify-center gap-1 cursor-pointer"
+            >
               <Edit2 :size="16" />
               Edit
             </button>
-            <button @click="handleCancel(booking.id)"
-              class="flex-1 px-3 py-2 bg-black text-white rounded-lg text-sm font-medium flex items-center justify-center gap-1 cursor-pointer">
+            <button
+              @click="handleCancel(booking.id)"
+              class="flex-1 px-3 py-2 bg-black text-white rounded-lg text-sm font-medium flex items-center justify-center gap-1 cursor-pointer"
+            >
               <Trash2 :size="16" />
               Cancel
             </button>
@@ -68,8 +85,12 @@
       </p>
     </div>
 
-    <CancelBookingModal :isOpen="showCancelModal" :bookingId="bookingToCancel" @close="closeCancelModal"
-      @confirm="confirmCancel" />
+    <CancelBookingModal
+      :isOpen="showCancelModal"
+      :bookingId="bookingToCancel"
+      @close="closeCancelModal"
+      @confirm="confirmCancel"
+    />
   </div>
 </template>
 
