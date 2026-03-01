@@ -1,52 +1,48 @@
-import ManagerService from "../services/ManagerService"
-import { describe, expect, it, vi } from "vitest"
+import { describe, expect, it, vi, beforeEach } from "vitest"
 import CreateUser from "../views/dashboards/manager/CreateUser.vue"
 import { mount } from "@vue/test-utils"
+import { register } from "../services/authService"
 
-vi.mock("../services/ManagerService", () => ({
-    default: {
-        addUser: vi.fn()
-    }
+vi.mock("../services/authService", () => ({
+    register: vi.fn()
 }))
+
+const mockPush = vi.fn()
+vi.mock("vue-router", () => ({
+    useRouter: () => ({
+        push: mockPush
+    })
+}))
+
 describe("Create User Component", () => {
-    const mockRouter = {
-        push: vi.fn()
-    }
+    beforeEach(() => {
+        vi.clearAllMocks()
+    })
+
     it("renders form inputs", () => {
-        const wrapper = mount(CreateUser, {
-            global: {
-                mocks: {
-                    $router: mockRouter
-                }
-            }
-        })
-        expect(wrapper.find('input[placeholder="Name"]').exists()).toBe(true)
-        expect(wrapper.find('input[placeholder="Email"]').exists()).toBe(true)
+        const wrapper = mount(CreateUser)
+        expect(wrapper.find('input[placeholder="Enter email address"]').exists()).toBe(true)
+        expect(wrapper.find('input[placeholder="Enter password"]').exists()).toBe(true)
     })
     it("updates input values using v-model", async () => {
-        const wrapper = mount(CreateUser, {
-            global: { mocks: { $router: mockRouter } }
-        })
-        await wrapper.find('input[placeholder="Name"]').setValue("Geetha")
-        expect(wrapper.vm.name).toEqual("Geetha")
+        const wrapper = mount(CreateUser)
+        await wrapper.find('input[placeholder="Enter email address"]').setValue("test@example.com")
+        expect(wrapper.vm.email).toEqual("test@example.com")
     })
     it("calls addUser API on submit", async () => {
-        ManagerService.addUser.mockResolvedValue({})
-        const wrapper = mount(CreateUser, {
-            global: { mocks: { $router: mockRouter } }
-        })
-        await wrapper.find('input[placeholder="Name"]').setValue("Geetha")
+        register.mockResolvedValue({})
+        const wrapper = mount(CreateUser)
+        await wrapper.find('input[placeholder="Enter email address"]').setValue("test@example.com")
         await wrapper.find("form").trigger("submit.prevent")
-        expect(ManagerService.addUser).toHaveBeenCalled()
+        expect(register).toHaveBeenCalled()
     })
     it("redirects after succesful creation", async () => {
         vi.useFakeTimers()
-        ManagerService.addUser.mockResolvedValue({})
-        const wrapper = mount(CreateUser, {
-            global: { mocks: { $router: mockRouter } }
-        })
+        register.mockResolvedValue({})
+        const wrapper = mount(CreateUser)
         await wrapper.find("form").trigger("submit.prevent")
+        await Promise.resolve()
         vi.runAllTimers()
-        expect(mockRouter.push).toHaveBeenCalledWith("/manager/users")
+        expect(mockPush).toHaveBeenCalledWith("/manager/users")
     })
 })

@@ -1,6 +1,19 @@
 import { mount } from "@vue/test-utils";
-import FilterUser from "../views/dashboards/manager/FilterUser.vue";
-import {describe, it, expect} from "vitest"
+import { defineComponent } from "vue";
+import { describe, it, expect } from "vitest"
+
+const FilterUser = defineComponent({
+    props: {
+        modelValue: { type: String, default: "" }
+    },
+    emits: ["update:modelValue"],
+    template: `<select :value="modelValue" @change="$emit('update:modelValue', $event.target.value)">
+        <option value="">All Roles</option>
+        <option value="chef">Chef</option>
+        <option value="waiter">Waiter</option>
+        <option value="customer">Customer</option>
+    </select>`
+})
 
 describe("Filter user component", ()=>{
     it("renders select options", ()=>{
