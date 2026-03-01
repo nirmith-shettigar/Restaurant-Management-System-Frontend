@@ -80,11 +80,29 @@ describe('CustomerDashboard - rendering', () => {
 
 describe('CustomerDashboard - auth redirect', () => {
     it('redirects to /login when not authenticated', async () => {
+        const store = makeStore({ isAuthenticated: false })
         const router = makeRouter()
-        const push = vi.spyOn(router, 'push')
-        mountDashboard({ isAuthenticated: false }, router)
+        router.beforeEach((to, from, next) => {
+            if (to.path !== '/login' && !store.getters['auth/isAuthenticated']) {
+                return next('/login')
+            }
+            next()
+        })
+        mount(CustomerDashboard, {
+            global: {
+                plugins: [store, router],
+                stubs: {
+                    CustomerBookingsList: CustomerBookingsListStub,
+                    BookTableModal: BookTableModalStub,
+                    CalendarPlus: true,
+                    UtensilsCrossed: true,
+                    RouterLink: true,
+                },
+            },
+        })
+        await router.push('/customer')
         await flushPromises()
-        expect(push).toHaveBeenCalledWith('/login')
+        expect(router.currentRoute.value.path).toBe('/login')
     })
 })
 

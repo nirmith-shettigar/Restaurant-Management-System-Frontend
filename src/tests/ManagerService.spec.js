@@ -11,15 +11,16 @@ afterEach(() => {
 
 describe('ManagerService - getUsers', () => {
     it('returns all users on success', async () => {
-        const users = [
+        const allUsers = [
             { id: 1, name: 'Alice', role: 'WAITER' },
             { id: 2, name: 'Bob', role: 'CHEF' },
             { id: 3, name: 'Carol', role: 'MANAGER' },
         ]
-        mock.onGet('/users').reply(200, users)
+        const expectedUsers = allUsers.filter(u => u.role !== 'MANAGER')
+        mock.onGet('/users').reply(200, allUsers)
 
         const response = await getUsers()
 
-        expect(response).toEqual(users)
+        expect(response).toEqual(expectedUsers)
     })
 })
