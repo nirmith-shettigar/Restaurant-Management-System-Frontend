@@ -27,7 +27,12 @@ const handleLogin = async () => {
       token: response.token,
     });
 
-    const roleRoutes = { WAITER: "/waiter", CUSTOMER: "/customer", CHEF: "/chef", MANAGER: "/manager" };
+    const roleRoutes = {
+      WAITER: "/waiter",
+      CUSTOMER: "/customer",
+      CHEF: "/chef",
+      MANAGER: "/manager",
+    };
     const destination = roleRoutes[response.user?.role] || "/";
 
     toast.success("Login successful! Redirecting...");
@@ -43,15 +48,24 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-5">
+  <div
+    class="min-h-screen flex items-center justify-center backgroundColor p-5"
+  >
     <Toaster position="top-center " />
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h1 class="text-2xl font-bold mb-6 text-center">User Login</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">
+        User <span class="text-blue-500">Login</span>
+      </h1>
 
       <form @submit.prevent="handleLogin" class="space-y-5">
         <div>
           <label class="label">Email</label>
-          <input type="email" v-model="formData.email" class="input" placeholder="Enter your email" />
+          <input
+            type="email"
+            v-model="formData.email"
+            class="input"
+            placeholder="Enter your email"
+          />
         </div>
 
         <div>
@@ -67,11 +81,18 @@ const handleLogin = async () => {
 
         <div>
           <label class="label">Password</label>
-          <input type="password" v-model="formData.password" class="input" placeholder="Enter your password" />
+          <input
+            type="password"
+            v-model="formData.password"
+            class="input"
+            placeholder="Enter your password"
+          />
         </div>
 
-        <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition disabled:opacity-60 cursor-pointer"
-          :disabled="isLoading">
+        <button
+          class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition disabled:opacity-60 cursor-pointer"
+          :disabled="isLoading"
+        >
           {{ isLoading ? "Logging In..." : "Login" }}
         </button>
       </form>

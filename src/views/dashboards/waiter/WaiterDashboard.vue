@@ -8,10 +8,14 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <router-link to="/waiter/create-order"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+        <router-link
+          to="/waiter/create-order"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
+        >
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center"
+            >
               <ClipboardEdit :size="24" class="text-blue-600" />
             </div>
             <div>
@@ -21,10 +25,14 @@
           </div>
         </router-link>
 
-        <div @click="activeView = 'orders'"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div
+          @click="activeView = 'orders'"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer"
+        >
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"
+            >
               <ClipboardList :size="24" class="text-green-600" />
             </div>
             <div>
@@ -34,10 +42,14 @@
           </div>
         </div>
 
-        <div @click="activeView = 'bookings'"
-          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div
+          @click="activeView = 'bookings'"
+          class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer"
+        >
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <div
+              class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+            >
               <CalendarDays :size="24" class="text-purple-600" />
             </div>
             <div>
@@ -57,26 +69,10 @@
 </template>
 
 <script setup>
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { onMounted, ref } from "vue";
 import { ClipboardEdit, ClipboardList, CalendarDays } from "lucide-vue-next";
 import WaiterOrdersList from "../../../components/order/WaiterOrdersList.vue";
 import TodayBookingsList from "../../../components/booking/TodayBookingsList.vue";
 import { Toaster } from "vue-sonner";
-
-const store = useStore();
-const router = useRouter();
+import { ref } from "vue";
 const activeView = ref("orders");
-
-onMounted(() => {
-  const isAuthenticated = store.getters["auth/isAuthenticated"];
-  const userRole = store.getters["auth/userRole"];
-
-  if (!isAuthenticated) {
-    router.push("/login");
-  } else if (userRole !== "WAITER") {
-    router.push("/");
-  }
-});
 </script>

@@ -52,7 +52,7 @@ export const login = async (credentials) => {
 
   if (response.data && response.data.length > 0) {
     const user = response.data[0];
-    const { password, number, ...safeUser } = user;
+    const { password, phone, ...safeUser } = user;
 
     return {
       user: safeUser,

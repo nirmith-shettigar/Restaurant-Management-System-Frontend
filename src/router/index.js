@@ -37,37 +37,40 @@ const routes = [
     component: Register,
     meta: { hideNavbar: true },
   },
-  // Customer Routes
   {
     path: "/customer",
     name: "CustomerDashboard",
     component: CustomerDashboard,
+    meta: { role: "CUSTOMER" },
   },
   {
     path: "/customer/bookings",
     name: "CustomerBookings",
     component: CustomerBookings,
+    meta: { role: "CUSTOMER" },
   },
   {
     path: "/customer/menu",
     name: "CustomerMenu",
     component: CustomerMenu,
+    meta: { role: "CUSTOMER" },
   },
-  // Waiter Routes
   {
     path: "/waiter",
     name: "WaiterDashboard",
     component: WaiterDashboard,
+    meta: { role: "WAITER" },
   },
   {
     path: "/waiter/create-order",
     name: "CreateOrder",
     component: CreateOrder,
+    meta: { role: "WAITER" },
   },
-  // Manager Routes
   {
     path: "/manager",
     component: ManagerDashboard,
+    meta: { role: "MANAGER" },
     children: [
       {
         path: "",
@@ -83,14 +86,12 @@ const routes = [
       },
     ],
   },
-
-  // Chef Routes
   {
     path: "/chef",
     name: "ChefDashboard",
     component: ChefDashboard,
+    meta: { role: "CHEF" },
   },
-  // 404 Not Found
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
@@ -105,12 +106,30 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isLoggedIn = store.getters["auth/isAuthenticated"];
+  const userRole = store.getters["auth/userRole"];
 
   if (isLoggedIn && (to.name === "Login" || to.name === "Register")) {
-    next({ name: "Home" });
-  } else {
-    next();
+    return next({ name: "Home" });
   }
+
+  if (to.meta.role) {
+    if (!isLoggedIn) {
+      return next({ name: "Login" });
+    }
+
+    if (to.meta.role !== userRole) {
+      const dashboardMap = {
+        CUSTOMER: "/customer",
+        WAITER: "/waiter",
+        CHEF: "/chef",
+        MANAGER: "/manager",
+      };
+
+      return next(dashboardMap[userRole] || "/");
+    }
+  }
+
+  next();
 });
 
 export default router;
