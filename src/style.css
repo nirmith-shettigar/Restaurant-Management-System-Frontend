@@ -81,3 +81,7 @@
 .text-responsive-base {
   @apply text-sm sm:text-base;
 }
+
+.backgroundColor {
+  @apply bg-[linear-gradient(152deg,#f3f4f6_50%,#3b82f6_50%)];
+}

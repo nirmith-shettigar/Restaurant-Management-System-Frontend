@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <Toaster position="top-center"/>
+    <Toaster position="top-center" />
     <div class="container mx-auto px-4 py-8">
       <div class="mb-8 flex items-center justify-between">
         <div>
@@ -44,9 +44,6 @@ import MenuItem from "../../../components/menu/MenuItem.vue";
 import { getMenuItems } from "../../../services/menuService";
 import { toast, Toaster } from "vue-sonner";
 
-const router = useRouter();
-const store = useStore();
-
 const menuItems = ref([]);
 const loading = ref(true);
 
@@ -63,15 +60,6 @@ const loadMenuItems = async () => {
 };
 
 onMounted(async () => {
-  const isAuthenticated = store.getters["auth/isAuthenticated"];
-  const userRole = store.getters["auth/userRole"];
-
-  if (!isAuthenticated) {
-    router.push("/login");
-  } else if (userRole !== "CUSTOMER") {
-    router.push("/");
-  } else {
-    await loadMenuItems();
-  }
+  await loadMenuItems();
 });
 </script>
