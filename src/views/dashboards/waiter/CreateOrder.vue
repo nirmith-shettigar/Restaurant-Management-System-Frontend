@@ -68,7 +68,7 @@
           <div class="flex flex-col items-center gap-2 md:flex-row md:gap-3">
             <button
               @click="decreaseQuantity(item.id)"
-              class="w-10 h-10 rounded-full bg-red-400 text-white hover:bg-red-500 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center order-1 md:order-1"
+              class="w-10 h-10 rounded-full bg-red-400 text-white hover:bg-red-500 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center order-1 md:order-1 cursor-pointer"
               :disabled="getQuantity(item.id) === 0 || isLoading"
             >
               <Minus :size="18" />
@@ -80,7 +80,7 @@
             </span>
             <button
               @click="increaseQuantity(item.id)"
-              class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 flex items-center justify-center order-3 md:order-3"
+              class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 flex items-center justify-center order-3 md:order-3 cursor-pointer"
               :disabled="isLoading"
             >
               <Plus :size="18" />
@@ -101,7 +101,7 @@
       <button
         @click="submitOrder"
         :disabled="isLoading"
-        class="w-full sm:w-auto px-8 py-3 bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-8 py-3 bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
       >
         {{ isLoading ? "Creating..." : "Place Order" }}
       </button>

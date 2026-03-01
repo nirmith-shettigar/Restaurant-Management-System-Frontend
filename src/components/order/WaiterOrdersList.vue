@@ -7,7 +7,7 @@
       <div
         v-for="order in orders"
         :key="order.id"
-        class="bg-white rounded-lg shadow p-6 flex items-center justify-between"
+        class="bg-white rounded-lg shadow p-6 flex items-center justify-between hover:shadow-md transition-shadow"
       >
         <div class="space-y-1">
           <p class="text-md font-semibold text-gray-800">{{ "ORDER : " + order.id }}</p>

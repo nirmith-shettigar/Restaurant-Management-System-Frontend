@@ -1,0 +1,141 @@
+{
+  "users": [
+    {
+      "id": "W001",
+      "email": "waiter1@gmail.com",
+      "phone": "9876543210",
+      "password": "w123",
+      "role": "WAITER"
+    },
+    {
+      "id": "C001",
+      "email": "customer1@gmail.com",
+      "phone": "9876543210",
+      "password": "c123",
+      "role": "CUSTOMER"
+    },
+    {
+      "id": "CH001",
+      "email": "chef1@example.com",
+      "phone": "9876543211",
+      "password": "ch123",
+      "role": "CHEF"
+    },
+    {
+      "id": "M001",
+      "email": "manager@gmail.com",
+      "phone": "9845125643",
+      "password": "m123",
+      "role": "MANAGER"
+    }
+  ],
+  "orders":[],
+ "menuItems": [
+  {
+    "id": "1",
+    "name": "Biryani",
+    "description": "Fragrant long-grain rice layered with spices, saffron and choice of vegetables or meat.",
+    "price": 280,
+    "image": "https://th.bing.com/th/id/OIP.iPZpeXZGCJy7axBKV28GpQHaHa?w=207&h=207&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "2",
+    "name": "Butter Chicken",
+    "description": "Creamy tomato-based curry with tender chicken pieces, mildly spiced and rich.",
+    "price": 320,
+    "image": "https://images.immediate.co.uk/production/volatile/sites/30/2021/02/butter-chicken-ac2ff98.jpg?quality=90&resize=440,400"
+  },
+  {
+    "id": "3",
+    "name": "Paneer Tikka",
+    "description": "Marinated cubes of paneer grilled to perfection with bell peppers and spices. Vegan can be requested.",
+    "price": 260,
+    "image": "https://th.bing.com/th/id/OIP.uxZyx2BrmtT4eMIt88GfnAHaHa?w=187&h=187&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "4",
+    "name": "Masala Dosa",
+    "description": "Crispy rice-lentil crepe filled with spiced potato masala, served with sambar and chutneys.",
+    "price": 150,
+    "image": "https://th.bing.com/th/id/OIP.6Nx_C1m4YCujBiHe48YpHAHaE8?w=291&h=194&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "5",
+    "name": "Samosa",
+    "description": "Deep-fried pastry filled with spiced potatoes and peas — classic Indian street snack.",
+    "price": 60,
+    "image": "https://th.bing.com/th/id/OIP.7flonXL1KR0z68vhG8ydhQHaEK?w=302&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "6",
+    "name": "Chole Bhature",
+    "description": "Spicy chickpea curry served with fluffy deep-fried bread — a hearty North Indian favorite.",
+    "price": 200,
+    "image": "https://th.bing.com/th/id/OIP.foPopp6U5vIobmxhLHs5gwHaE8?w=256&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "7",
+    "name": "Pani Puri",
+    "description": "Crispy hollow puris filled with spiced potato, chickpeas and tangy water.",
+    "price": 80,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMxRktNKG_9rHPpCGxK_PpgO5CB7OJmK8R8g&s"
+  },
+  {
+    "id": "8",
+    "name": "Daal Tadka",
+    "description": "Yellow lentils cooked with aromatic spices and finished with a tempering of garlic and cumin.",
+    "price": 160,
+    "image": "https://th.bing.com/th/id/OIP.Ko5XvIKQg3flggO_2flehAHaHa?w=190&h=189&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "9",
+    "name": "Rajma Chawal",
+    "description": "Red kidney beans simmered in rich tomato gravy, served with steamed rice.",
+    "price": 170,
+    "image": "https://th.bing.com/th/id/OIP.FP-u-YRY6Gt86cb0Pq1OBAHaE8?w=266&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "10",
+    "name": "Aloo Paratha",
+    "description": "Wheat flatbread stuffed with spiced mashed potatoes, served with yogurt and pickle.",
+    "price": 120,
+    "image": "https://th.bing.com/th/id/OIP.8DE6gB_yvLkqxVDtEHFE5QHaHa?w=178&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "11",
+    "name": "Pav Bhaji",
+    "description": "Buttery mashed vegetable curry served with soft butter-toasted buns.",
+    "price": 180,
+    "image": "https://th.bing.com/th/id/OIP.bjpTLW2E7QMuXzlIe2JsrwHaGs?w=204&h=183&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "12",
+    "name": "Idli with Sambar",
+    "description": "Steamed rice cakes served with lentil sambar and coconut chutney.",
+    "price": 140,
+    "image": "https://th.bing.com/th/id/OIP.sM-RrFnXR2IVxiRwFARqFAHaE6?w=303&h=201&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "13",
+    "name": "Gulab Jamun",
+    "description": "Soft fried milk dumplings soaked in fragrant sugar syrup — classic Indian sweet.",
+    "price": 90,
+    "image": "https://th.bing.com/th/id/OIP.0EYAEujFoh31P3g09p5khwHaEJ?w=292&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "14",
+    "name": "Jalebi",
+    "description": "Crispy, sweet spirals soaked in saffron sugar syrup — a festive favorite.",
+    "price": 70,
+    "image": "https://th.bing.com/th/id/OIP.6_AMDfjQM-tFWcY-qe-egQHaHa?w=189&h=188&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  },
+  {
+    "id": "15",
+    "name": "Paniyaram",
+    "description": "South Indian bite-sized dumplings made from fermented batter — savory or sweet.",
+    "price": 130,
+    "image": "https://th.bing.com/th/id/OIP.5S61fFRaGtP5cS7C8hH7zAHaHa?w=193&h=193&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3"
+  }
+],
+  "bookings": []
+}
