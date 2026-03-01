@@ -7,7 +7,6 @@ import Register from "../views/auth/Register.vue";
 import NotFound from "../views/NotFound.vue";
 
 import CustomerDashboard from "../views/dashboards/customer/CustomerDashboard.vue";
-import CustomerBookings from "../views/dashboards/customer/CustomerBookings.vue";
 import CustomerMenu from "../views/dashboards/customer/CustomerMenu.vue";
 
 import WaiterDashboard from "../views/dashboards/waiter/WaiterDashboard.vue";
@@ -18,6 +17,7 @@ import DisplayUser from "../views/dashboards/manager/DisplayUser.vue";
 import CreateUser from "../views/dashboards/manager/CreateUser.vue";
 
 import ChefDashboard from "../views/dashboards/chef/ChefDashboard.vue";
+import { dashboardMap } from "../utils/constants";
 
 const routes = [
   {
@@ -41,12 +41,6 @@ const routes = [
     path: "/customer",
     name: "CustomerDashboard",
     component: CustomerDashboard,
-    meta: { role: "CUSTOMER" },
-  },
-  {
-    path: "/customer/bookings",
-    name: "CustomerBookings",
-    component: CustomerBookings,
     meta: { role: "CUSTOMER" },
   },
   {
@@ -118,13 +112,6 @@ router.beforeEach((to, from, next) => {
     }
 
     if (to.meta.role !== userRole) {
-      const dashboardMap = {
-        CUSTOMER: "/customer",
-        WAITER: "/waiter",
-        CHEF: "/chef",
-        MANAGER: "/manager",
-      };
-
       return next(dashboardMap[userRole] || "/");
     }
   }

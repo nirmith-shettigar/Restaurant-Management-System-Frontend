@@ -11,7 +11,7 @@ vi.mock("vue-sonner", () => ({
     Toaster: { template: "<div />" }
 }))
 
-import { getUsers } from "../services/ManagerService"
+import { getUsers } from "../services/managerService"
 
 const mockUsers = [
     { id: 1, name: "A", email: "a@test.com", phone: "111", role: "chef" },

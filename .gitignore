@@ -26,3 +26,4 @@ dist-ssr
 db.json
 package-lock.json
 coverage
+.env

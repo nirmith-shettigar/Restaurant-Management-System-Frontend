@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { login } from "../../services/authService";
 import { toast, Toaster } from "vue-sonner";
+import { dashboardMap } from "../../utils/constants";
 
 const router = useRouter();
 const store = useStore();
@@ -26,14 +27,8 @@ const handleLogin = async () => {
       user: response.user,
       token: response.token,
     });
-
-    const roleRoutes = {
-      WAITER: "/waiter",
-      CUSTOMER: "/customer",
-      CHEF: "/chef",
-      MANAGER: "/manager",
-    };
-    const destination = roleRoutes[response.user?.role] || "/";
+    
+    const destination = dashboardMap[response.user?.role] || "/";
 
     toast.success("Login successful! Redirecting...");
     setTimeout(() => {

@@ -70,6 +70,7 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { User, LogOut, UtensilsCrossed } from "lucide-vue-next";
 import { useRouter } from "vue-router";
+import { dashboardMap } from "../../utils/constants";
 
 const store = useStore();
 const isAuthenticated = computed(() => store.getters["auth/isAuthenticated"]);
@@ -78,13 +79,6 @@ const showDropdown = ref(false);
 const router = useRouter();
 
 const goToDashboard = () => {
-  const dashboardMap = {
-    CUSTOMER: "/customer",
-    WAITER: "/waiter",
-    CHEF: "/chef",
-    MANAGER: "/manager",
-  };
-
   const dashboardPath = dashboardMap[userRole.value] || "/";
   showDropdown.value = false;
   router.push(dashboardPath);
