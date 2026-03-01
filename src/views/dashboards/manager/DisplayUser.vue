@@ -79,7 +79,7 @@
 import { ref, computed, onMounted } from "vue";
 import { Users, Mail, Phone } from "lucide-vue-next";
 import { toast, Toaster } from "vue-sonner";
-import { getUsers } from "../../../services/ManagerService";
+import { getUsers } from "../../../services/managerService";
 
 const users = ref([]);
 const selectedRole = ref("");

@@ -1,5 +1,5 @@
 <script>
-import Navbar from './components/common/Navbar.vue';
+import Navbar from "./components/common/Navbar.vue";
 import "vue-sonner/style.css";
 
 export default {

@@ -19,7 +19,7 @@
             class="flex items-center justify-between border-b border-gray-100 pb-2"
           >
             <h3 class="text-lg font-semibold text-gray-800">
-              {{ booking.id }}
+              {{ "BOOKING : " + booking.id }}
             </h3>
             <span
               class="px-3 py-1 text-xs font-semibold rounded-full"
@@ -89,10 +89,7 @@ onMounted(async () => {
             customerPhone: customer.phone,
           };
         } catch (error) {
-         toast.error(
-            `Error fetching customer ${booking.customerId}:`,
-            error,
-          );
+          toast.error(`Error fetching customer ${booking.customerId}:`, error);
           return {
             ...booking,
             customerEmail: "N/A",

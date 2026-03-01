@@ -10,6 +10,4 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 [API Design](artifacts/api_design_template_library.pdf)
 
-
 [WireFrames](artifacts/wireframes/)
-

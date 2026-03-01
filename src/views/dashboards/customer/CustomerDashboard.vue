@@ -76,7 +76,6 @@ import {
 import { toast, Toaster } from "vue-sonner";
 
 const store = useStore();
-
 const bookings = ref([]);
 const loading = ref(true);
 const isModalOpen = ref(false);

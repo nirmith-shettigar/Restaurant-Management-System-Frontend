@@ -37,8 +37,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import { ArrowLeft, UtensilsCrossed } from "lucide-vue-next";
 import MenuItem from "../../../components/menu/MenuItem.vue";
 import { getMenuItems } from "../../../services/menuService";
